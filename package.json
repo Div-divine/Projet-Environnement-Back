@@ -1,0 +1,23 @@
+{
+  "name": "backend-note-app",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "http-errors": "~1.6.3",
+    "mysql2": "^3.9.1",
+    "nodemon": "^3.1.0",
+    "pug": "^3.0.2",
+    "socket.io": "^4.7.5"
+  }
+}
