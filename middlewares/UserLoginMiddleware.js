@@ -22,15 +22,18 @@ async function loginValidation(req, res, next) {
         if (!match) {
             return res.status(400).json({ message: 'Incorrect password' });
         }
-
+        console.log(rows[0])
         // Generate JWT token 
         const token = jwt.sign({ userId: rows[0].user_id, username: rows[0].user_name }, secretKey, { expiresIn: '1h' });
-        
-        // Attach token to response header
-        res.setHeader('Authorization', `Bearer ${token}`);
-        
+        console.log(token)
+        // Attach token to response send it as data 
+        res.status(200)
+        .header("authentification", token)
+        .json({ token, userId: rows[0].user_id.toString() });
+
         // Call next middleware
         next();
+
     } catch (error) {
         // Handle error
         console.error('Error comparing passwords:', error);
