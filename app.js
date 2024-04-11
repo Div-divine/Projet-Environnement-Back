@@ -4,6 +4,7 @@ import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import createHttpError from 'http-errors';
 
 import indexRouter from './routes/index.js';
 import userRouter from './routes/users.js';
@@ -22,7 +23,7 @@ app.use('/users', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    next(createError(404));
+    next(createHttpError(404));
 });
 
 // Set up the HTTP server with Express app

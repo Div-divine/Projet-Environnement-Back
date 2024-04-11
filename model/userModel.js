@@ -26,8 +26,8 @@ class User {
         }
     }
 
-    static async checkUserExist(id) {
-        const [rows] = await dbQuery('SELECT * FROM users WHERE user_id = ?', [id]);
+    static async checkUserExist(email) {
+        const [rows] = await dbQuery('SELECT * FROM users WHERE user_email = ?', [email]);
         return rows[0];
     }
 }
