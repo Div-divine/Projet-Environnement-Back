@@ -1,0 +1,3 @@
+GET http://localhost:3000/users/info
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiRGF2aWQiLCJpYXQiOjE3MTMwODY4MDUsImV4cCI6MTcxMzA5MDQwNX0.i51txxTuHFIl88ongpZfJwoxaAPklvcQmcDv9VQaah4

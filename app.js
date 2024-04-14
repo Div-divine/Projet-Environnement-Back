@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
@@ -11,11 +10,11 @@ import userRouter from './routes/users.js';
 
 const app = express();
 
+// Enable CORS for all routes
+app.use(cors());
+
 // Body parser (configure it before defining routes)
 app.use(bodyParser.json());
-
-// Connect CORS
-app.use(cors());
 
 // Routes (define routes after configuring body parser)
 app.use('/', indexRouter);
@@ -52,7 +51,7 @@ io.on('connection', (socket) => {
 })
 
 // Define port for Express server
-const PORT = process.env.SERVER_PORT;
+const PORT = process.env.SERVER_PORT || 3000;
 
 // Start the combined server
 server.listen(PORT, () => {

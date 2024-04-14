@@ -31,8 +31,6 @@ async function loginValidation(req, res, next) {
         .header("authentification", token)
         .json({ token, userId: rows[0].user_id.toString() });
 
-        // Call next middleware
-        next();
 
     } catch (error) {
         // Handle error

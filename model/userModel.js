@@ -5,7 +5,7 @@ import { promisify } from 'util';
 const genSalt = promisify(bcrypt.genSalt);
 const hash = promisify(bcrypt.hash);
 
-class User {
+class Users {
     static async createUser(name, pwd, email, statusId) {
         try {
             // Generate a salt
@@ -30,6 +30,11 @@ class User {
         const [rows] = await dbQuery('SELECT * FROM users WHERE user_email = ?', [email]);
         return rows[0];
     }
+
+    static async getUserById(userId){
+      const[row] = await dbQuery('SELECT * FROM users WHERE user_id= ?', [userId]);
+      return row[0];
+    }
 }
 
-export default User;
+export default Users;
