@@ -1,0 +1,3 @@
+GET http://localhost:3000/groups/5
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiRGF2aWQiLCJpYXQiOjE3MTMxOTA1NTgsImV4cCI6MTcxMzE5NDE1OH0.WoJ6wJvYb9y--O9yNtiWTM6IV5KxIoOeDXaCWIPq-iI
