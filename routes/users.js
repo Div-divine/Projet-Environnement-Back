@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import User from '../model/userModel.js';
+import User from '../model/usersModel.js';
 import validateUserInput from '../middlewares/ValidateUsersMiddleware.js';
 import loginValidation from '../middlewares/UserLoginMiddleware.js';
 import getUserById from '../middlewares/GetUserByIdMiddleware.js';
 import verifyToken from '../middlewares/webtokenMiddleware.js';
-import Users from '../model/userModel.js';
+import Users from '../model/usersModel.js';
 
 const router = Router();
 

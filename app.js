@@ -5,8 +5,10 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import createHttpError from 'http-errors';
 
+// Get routes
 import indexRouter from './routes/index.js';
 import userRouter from './routes/users.js';
+import groupsRouter from './routes/groups.js';
 
 const app = express();
 
@@ -16,9 +18,10 @@ app.use(cors());
 // Body parser (configure it before defining routes)
 app.use(bodyParser.json());
 
-// Routes (define routes after configuring body parser)
+// Routes (define routes after configuring)
 app.use('/', indexRouter);
 app.use('/users', userRouter);
+app.use('/groups', groupsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
