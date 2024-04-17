@@ -9,6 +9,7 @@ import createHttpError from 'http-errors';
 import indexRouter from './routes/index.js';
 import userRouter from './routes/users.js';
 import groupsRouter from './routes/groups.js';
+import usersGroupsRouter from './routes/usersGroups.js'
 
 const app = express();
 
@@ -22,6 +23,8 @@ app.use(bodyParser.json());
 app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/groups', groupsRouter);
+app.use('/usergroups', usersGroupsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

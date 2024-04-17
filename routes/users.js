@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import User from '../model/usersModel.js';
 import validateUserInput from '../middlewares/ValidateUsersMiddleware.js';
 import loginValidation from '../middlewares/UserLoginMiddleware.js';
 import getUserById from '../middlewares/GetUserByIdMiddleware.js';
 import verifyToken from '../middlewares/webtokenMiddleware.js';
 import Users from '../model/usersModel.js';
+import blockRegistrationOfSameUser from '../middlewares/CheckUserAlreadyExistsMiddleWare.js';
 
 const router = Router();
 
-router.post('/', validateUserInput, async (req, res) => {
+router.post('/', blockRegistrationOfSameUser, validateUserInput, async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
