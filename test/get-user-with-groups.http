@@ -1,0 +1,7 @@
+GET http://localhost:3000/usergroups/userwithgroups
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoiRGFuaWVsIiwiaWF0IjoxNzEzMzgxOTMwLCJleHAiOjE3MTMzODU1MzB9.vF0staMRoQkiE89_x2hDxEvnUJcXZNLfZi0aEVXJB6A
+
+{
+    "userId": 10
+}

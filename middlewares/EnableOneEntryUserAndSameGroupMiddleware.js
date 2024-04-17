@@ -1,4 +1,4 @@
-import UsersGroups from "../model/UsersAndGroups.js";
+import UsersGroups from "../model/UsersAndGroupsModel.js";
 
 function enableOneUserInSameGroup(req, res, next){
     const {userId, groupId} = req.body
