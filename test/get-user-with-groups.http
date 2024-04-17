@@ -1,7 +1,5 @@
-GET http://localhost:3000/usergroups/userwithgroups
+GET http://localhost:3000/usergroups/userwithgroups?userId=10
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoiRGFuaWVsIiwiaWF0IjoxNzEzMzgxOTMwLCJleHAiOjE3MTMzODU1MzB9.vF0staMRoQkiE89_x2hDxEvnUJcXZNLfZi0aEVXJB6A
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoiRGFuaWVsIiwiaWF0IjoxNzEzMzg1NzM1LCJleHAiOjE3MTMzODkzMzV9.tkZSPuFJDQdtND7ClUE4Germ1EAB0NAmENGSvyg3MDQ
 
-{
-    "userId": 10
-}
+

@@ -2,10 +2,10 @@ import UsersGroups from "../model/UsersAndGroupsModel.js";
 
 async function getUserAndGroups(req, res, next) {
     try {
-        const userId = req.body
-        if (userId.userId) {
+        const userId = req.query.userId
+        if (userId) {
             // Query the database to get the user by and with groups
-            const data = await UsersGroups.selectUserWithGroups(userId.userId);
+            const data = await UsersGroups.selectUserWithGroups(userId);
             console.log("Rows:", data);
 
             // Check if user exists

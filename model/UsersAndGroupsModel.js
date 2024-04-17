@@ -10,7 +10,7 @@ class UsersGroups {
         return rows[0]
     }
     static async selectUserWithGroups(userId) {
-        const [rows] = await dbQuery("SELECT * FROM actionsgroups JOIN users_actionsgroups ON actionsgroups.group_id = users_actionsgroups.group_id JOIN users ON users_actionsgroups.user_id = users.user_id WHERE users.user_id = ?",[userId]);
+        const [rows] = await dbQuery("SELECT group_name FROM actionsgroups JOIN users_actionsgroups ON actionsgroups.group_id = users_actionsgroups.group_id JOIN users ON users_actionsgroups.user_id = users.user_id WHERE users.user_id = ?",[userId]);
         return rows;
     }
 }

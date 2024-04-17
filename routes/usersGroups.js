@@ -29,10 +29,10 @@ router.post('/', enableOneUserInSameGroup, UserGroupsMiddleware, verifyToken, as
 
 router.get('/userwithgroups', getUserAndGroups, verifyToken, async (req, res) => {
 
-  const userId = req.body;
-  console.log('User id log', userId.userId)
+  const userId = req.query.userId; // Access query parameter
+  console.log('User id log', userId)
   if (userId) {
-    const data = await UsersGroups.selectUserWithGroups(userId.userId)
+    const data = await UsersGroups.selectUserWithGroups(userId)
     res.send(data);
   }
 
