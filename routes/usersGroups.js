@@ -4,7 +4,6 @@ import UserGroupsMiddleware from '../middlewares/ValidateUsersAndGroupsMiddlewar
 import UsersGroups from '../model/UsersAndGroupsModel.js';
 import enableOneUserInSameGroup from '../middlewares/EnableOneEntryUserAndSameGroupMiddleware.js';
 import { dbQuery } from '../db/db.js';
-import getUserAndGroups from '../middlewares/GetUserWithGroupsMiddleware.js';
 
 
 const router = Router();
@@ -14,29 +13,36 @@ router.post('/', enableOneUserInSameGroup, UserGroupsMiddleware, verifyToken, as
     const { userId, groupId } = req.body;
     // Check if the entry already exists
     const [existingEntry] = await dbQuery('SELECT * FROM users_actionsgroups WHERE user_id = ? AND group_id = ?', [userId, groupId]);
-    if (!existingEntry.length > 0) {
-      // Insert the entry if it doesn't exist
-      await UsersGroups.addUserGroups(userId, groupId);
-      res.status(201).json({ message: 'User and group linked successfully' });
+    if (existingEntry.length > 0) {
+      // Entry already exists, send a response indicating this
+      return res.status(200).json({ message: 'User and group already linked' });
     }
-    res.send('User and group already linked')
+    // Insert the entry if it doesn't exist
+    await UsersGroups.addUserGroups(userId, groupId);
+    res.status(201).json({ message: 'User and group linked successfully' });
   } catch (error) {
-    console.error('User and group already linked:', error);
+    console.error('Error linking user and group:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-
 });
 
-router.get('/userwithgroups', getUserAndGroups, verifyToken, async (req, res) => {
 
-  const userId = req.query.userId; // Access query parameter
-  console.log('User id log', userId)
-  if (userId) {
+router.get('/userwithgroups', verifyToken, async (req, res) => {
+  try {
+    const userId = req.query.userId; // Access query parameter
+    console.log('User id log', userId)
+    if (!userId) {
+      return res.status(404).json({ message: 'User not found' });
+    }
     const data = await UsersGroups.selectUserWithGroups(userId)
-    res.send(data);
+    res.send(data)
+  }catch (error) {
+    console.error('User and group not found:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
-
 })
+
+
 
 
 export default router;

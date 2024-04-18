@@ -12,6 +12,7 @@ async function getUserAndGroups(req, res, next) {
             if (!data) {
                 return res.status(404).json({ message: 'No group found' });
             }
+            res.send(data);
             next();
         }
 

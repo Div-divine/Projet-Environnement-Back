@@ -53,5 +53,24 @@ router.get('/info', verifyToken, async (req, res) => {
   }
 });
 
+// Route to get all users
+router.get('/:id', verifyToken, async (req,res) =>{
+  const userId = req.params.id;
+  const users = await Users.getAllUser(userId);
+  if(users.length < 0){
+    return res.status(404).json({ error: 'No user found' });
+  }
+  res.send(users);
+})
+// Route to get all only four users
+router.get('/limitusers/:id',verifyToken, async (req,res) =>{
+  const userId = req.params.id;
+  const users = await Users.getOnlyFourUser(userId);
+  if(users.length < 0){
+    return res.status(404).json({ error: 'No user found' });
+  }
+  res.send(users);
+})
+
 
 export default router;
