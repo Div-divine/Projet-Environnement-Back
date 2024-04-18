@@ -10,6 +10,7 @@ import indexRouter from './routes/index.js';
 import userRouter from './routes/users.js';
 import groupsRouter from './routes/groups.js';
 import usersGroupsRouter from './routes/usersGroups.js'
+import countRouter from './routes/count.js'
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/groups', groupsRouter);
 app.use('/usergroups', usersGroupsRouter);
+app.use('/count', countRouter);
 
 
 // catch 404 and forward to error handler

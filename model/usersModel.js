@@ -40,7 +40,7 @@ class Users {
       return row;
     }
     static async getOnlyFourUser(userId){
-        const[row] = await dbQuery('SELECT user_id, user_name FROM users WHERE user_id != ? ORDER BY user_created DESC LIMIT 4',[userId]);
+        const [row] = await dbQuery('SELECT user_id, user_name FROM users WHERE user_id != ? ORDER BY user_created DESC LIMIT 4',[userId]);
       return row;
     }
 }
