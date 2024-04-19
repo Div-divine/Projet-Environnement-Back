@@ -27,9 +27,8 @@ router.post('/', enableOneUserInSameGroup, UserGroupsMiddleware, verifyToken, as
   }
 });
 
-router.get('/joinusergroups', joinUsersWithGroups, verifyToken, async (req,res)=>{
+router.get('/joinusergroups/:id', joinUsersWithGroups, verifyToken, async (req,res)=>{
   // No need to do anything here , all has been taken care of in middleware
-  res.status(200).json({ message: 'User and groups selected sucessfully' });
 })
 
 router.get('/userwithgroups', verifyToken, async (req, res) => {

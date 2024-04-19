@@ -14,10 +14,10 @@ class UsersGroups {
         return rows;
     }
 
-    static async SelectAllUsersWithGroups(){
+    static async SelectAllUsersWithGroups(userId){
         /* The left joins will ensure to select all users both those who have no group and the groups which also
         have no users */ 
-        const [rows] = await dbQuery('SELECT * FROM users LEFT JOIN users_actionsgroups ON users.user_id = users_actionsgroups.user_id LEFT JOIN actionsgroups ON users_actionsgroups.group_id = actionsgroups.group_id');
+        const [rows] = await dbQuery('SELECT * FROM users LEFT JOIN users_actionsgroups ON users.user_id = users_actionsgroups.user_id LEFT JOIN actionsgroups ON users_actionsgroups.group_id = actionsgroups.group_id WHERE users.user_id != ?',[userId]);
         return rows;
     }
 }

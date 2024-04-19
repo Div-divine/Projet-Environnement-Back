@@ -1,8 +1,8 @@
 import UsersGroups from "../model/UsersAndGroupsModel.js";
 
 async function joinUsersWithGroups(req, res, next) {
-
-    const result = await UsersGroups.SelectAllUsersWithGroups();
+    const userId = req.params.id
+    const result = await UsersGroups.SelectAllUsersWithGroups(userId);
     // Initialize an empty object to store the grouped data
     const groupedData = {};
     if(!result.length){
