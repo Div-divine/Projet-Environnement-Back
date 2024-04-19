@@ -4,6 +4,7 @@ import UserGroupsMiddleware from '../middlewares/ValidateUsersAndGroupsMiddlewar
 import UsersGroups from '../model/UsersAndGroupsModel.js';
 import enableOneUserInSameGroup from '../middlewares/EnableOneEntryUserAndSameGroupMiddleware.js';
 import { dbQuery } from '../db/db.js';
+import joinUsersWithGroups from '../middlewares/JoinUserWithGroupsMiddleware.js';
 
 
 const router = Router();
@@ -26,6 +27,10 @@ router.post('/', enableOneUserInSameGroup, UserGroupsMiddleware, verifyToken, as
   }
 });
 
+router.get('/joinusergroups', joinUsersWithGroups, verifyToken, async (req,res)=>{
+  // No need to do anything here , all has been taken care of in middleware
+  res.status(200).json({ message: 'User and groups selected sucessfully' });
+})
 
 router.get('/userwithgroups', verifyToken, async (req, res) => {
   try {
