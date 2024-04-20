@@ -1,47 +1,60 @@
 import UsersGroups from "../model/UsersAndGroupsModel.js";
 
 async function joinUsersWithGroups(req, res, next) {
-    const userId = req.params.id
-    const result = await UsersGroups.SelectAllUsersWithGroups(userId);
-    // Initialize an empty object to store the grouped data
-    const groupedData = {};
-    if(!result.length){
-        return res.status(400).json({ message: 'Bad response' });
+    try {
+        const userId = req.params.id;
+
+        // Fetch users with groups excluding the specified user ID
+        const usersWithGroups = await UsersGroups.SelectAllUsersWithGroupsExceptOne(userId);
+        // Fetch all users excluding the specified user ID
+        const allUsers = await UsersGroups.SelectAllUsers(userId);
+
+        // Initialize an object to store users with their groups
+        const groupedData = {};
+
+        // Loop through each user with groups and add them to the groupedData object
+        usersWithGroups.forEach(user => {
+            if (!groupedData[user.user_id]) {
+                groupedData[user.user_id] = {
+                    user: {
+                        user_id: user.user_id,
+                        user_name: user.user_name,
+                        user_email: user.user_email,
+                        // Add other user information here
+                    },
+                    groups: [] // Initialize an array to store groups
+                };
+            }
+
+            // Add the group to the user's groups array
+            groupedData[user.user_id].groups.push({
+                group_id: user.group_id,
+                group_name: user.group_name,
+                // Add other group information here
+            });
+        });
+
+        // Loop through each user without groups and add them to the groupedData object
+        allUsers.forEach(user => {
+            if (!groupedData[user.user_id]) {
+                groupedData[user.user_id] = {
+                    user: {
+                        user_id: user.user_id,
+                        user_name: user.user_name,
+                        user_email: user.user_email,
+                        // Add other user information here
+                    },
+                    groups: [] // Empty array since the user has no groups
+                };
+            }
+        });
+
+        // Send the grouped data as a JSON response
+        res.json(Object.values(groupedData));
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ message: "Internal server error" });
     }
-    // Loop through each row in the result set
-    result.forEach(row => {
-        // Extract user and group information from the row
-        const user = {
-            userId: row.user_id,
-            userName: row.user_name,
-            userStatus: row.user_status,
-            userCreated: row.user_created,
-            userUpdated: row.user_updated,
-            userEmail: row.user_email    // Am going to use the user email in the back ofiice not on the front
-        };
-
-        const group = {
-            groupId: row.group_id,
-            groupName: row.group_name,
-            // Add other group information here
-        };
-
-        // Check if the user is already in the grouped data
-        if (!(row.user_id in groupedData)) {
-            // If not, initialize an empty array for the user
-            groupedData[row.user_id] = {
-                user: user,
-                groups: []
-            };
-        }
-
-        // Add the group to the user's groups array
-        groupedData[row.user_id].groups.push(group);
-    });
-
-    // Send the grouped data as a JSON response
-    res.json(groupedData);
-    next();
 }
 
 export default joinUsersWithGroups;
