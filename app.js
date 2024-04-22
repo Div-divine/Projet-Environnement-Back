@@ -9,8 +9,10 @@ import createHttpError from 'http-errors';
 import indexRouter from './routes/index.js';
 import userRouter from './routes/users.js';
 import groupsRouter from './routes/groups.js';
-import usersGroupsRouter from './routes/usersGroups.js'
-import countRouter from './routes/count.js'
+import usersGroupsRouter from './routes/usersGroups.js';
+import countRouter from './routes/count.js';
+import chatRoomsrouter from './routes/chatRooms.js'
+
 
 const app = express();
 
@@ -26,10 +28,11 @@ app.use('/users', userRouter);
 app.use('/groups', groupsRouter);
 app.use('/usergroups', usersGroupsRouter);
 app.use('/count', countRouter);
+app.use('/chatroom', chatRoomsrouter);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     next(createHttpError(404));
 });
 
@@ -59,7 +62,7 @@ io.on('connection', (socket) => {
 })
 
 // Define port for Express server
-const PORT = process.env.SERVER_PORT || 3000;
+const PORT = process.env.SERVER_PORT;
 
 // Start the combined server
 server.listen(PORT, () => {

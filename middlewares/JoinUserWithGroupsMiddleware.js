@@ -1,4 +1,5 @@
 import UsersGroups from "../model/UsersAndGroupsModel.js";
+import moment from "moment";
 
 async function joinUsersWithGroups(req, res, next) {
     try {
@@ -12,6 +13,12 @@ async function joinUsersWithGroups(req, res, next) {
         // Initialize an object to store users with their groups
         const groupedData = {};
 
+         // Function to format date in French format
+         const formatDate = (date) => {
+            const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            return new Date(date).toLocaleDateString('fr-FR', options);
+        };
+
         // Loop through each user with groups and add them to the groupedData object
         usersWithGroups.forEach(user => {
             if (!groupedData[user.user_id]) {
@@ -20,6 +27,9 @@ async function joinUsersWithGroups(req, res, next) {
                         user_id: user.user_id,
                         user_name: user.user_name,
                         user_email: user.user_email,
+                        user_created:  formatDate(user.user_created), // Format datetime in French format
+                        status_id: user.status_id,
+                        user_img : user.user_img
                         // Add other user information here
                     },
                     groups: [] // Initialize an array to store groups
@@ -42,13 +52,15 @@ async function joinUsersWithGroups(req, res, next) {
                         user_id: user.user_id,
                         user_name: user.user_name,
                         user_email: user.user_email,
+                        user_created:  formatDate(user.user_created), // Format datetime in French format
+                        status_id: user.status_id,
+                        user_img : user.user_img
                         // Add other user information here
                     },
                     groups: [] // Empty array since the user has no groups
                 };
             }
         });
-
         // Send the grouped data as a JSON response
         res.json(Object.values(groupedData));
     } catch (error) {
