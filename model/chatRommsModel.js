@@ -16,6 +16,10 @@ class ChatRoom {
         const [rows] = await dbQuery('SELECT chatroom_id FROM chatrooms WHERE (user1_id = ? AND user2_id = ?) OR (user1_id = ? AND user2_id = ?)', [user1Id, user2Id, user2Id, user1Id],);
         return rows[0];
     }
+    static async insertMessages(message, user1Id, user2Id, chatroomId){
+        const [rows] = await dbQuery('INSERT INTO messages(msg_content, sender_id, receiver_id, chatroom_id) VALUES(?, ?, ?, ?)',[message, user1Id, user2Id, chatroomId]);
+        return rows;
+    }
 }
 
 export default ChatRoom;
