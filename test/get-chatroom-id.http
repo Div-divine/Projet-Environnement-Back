@@ -1,9 +1,4 @@
-GET http://localhost:3000/chatroom/chatroom-id
+GET http://localhost:3000/chatroom/chatroom-id/10/31
 content-type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzEzNzkwNDM0fQ.21ce0EwkSbl7XVRb1MH8L-uRmy6vpW4jVvnHrf26NSg
-
-{
-    "user1Id": 10,
-    "user2Id": 31
-}
 
