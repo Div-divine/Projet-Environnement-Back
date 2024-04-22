@@ -24,7 +24,7 @@ async function loginValidation(req, res, next) {
         }
         console.log(rows[0])
         // Generate JWT token 
-        const token = jwt.sign({ userId: rows[0].user_id, username: rows[0].user_name }, secretKey, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: rows[0].user_id, username: rows[0].user_name }, secretKey);
         console.log(token)
         // Attach token to response send it as data 
         res.status(200)
