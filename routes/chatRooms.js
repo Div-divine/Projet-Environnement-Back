@@ -4,7 +4,6 @@ import createChatroom from "../middlewares/ChatRoomAccessMiddleware.js";
 import getchatRoomId from "../middlewares/GetChatRoomIdMiddleware.js";
 import enableOneChatrommPerPair from "../middlewares/EnableOnlyOneChatRoomPerPairOfUsers.js";
 import addUserMessages from "../middlewares/userMessagesMiddleware.js";
-import ChatRoom from "../model/chatRommsModel.js";
 
 const router = Router();
 
@@ -24,6 +23,8 @@ router.post('/messages', verifyToken, addUserMessages, async (req, res, next) =>
     res.status(500).json({ error: 'Internal server error' });
   }
 
-})
+});
+
+
 
 export default router;

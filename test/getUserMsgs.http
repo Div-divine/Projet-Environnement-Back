@@ -1,0 +1,4 @@
+GET http://localhost:3000/messages/10/31
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzEzODU5OTY3LCJleHAiOjE3MTM4NjM1Njd9.rbhZ2XSFhGl8OsqA3ALgNJrdPojqul-WGGAGU6EVRSw
+
