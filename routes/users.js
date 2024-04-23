@@ -53,6 +53,30 @@ router.get('/info', verifyToken, async (req, res) => {
   }
 });
 
+// Define route to get user by ID
+router.get('/user-data/:id', verifyToken, async (req, res) => {
+  try {
+      // Access user ID from request object
+      const userId = req.params.id;
+
+      // Get user info using id gotten from web token
+      const userData = await Users.getUserById(userId);
+
+      // Check if user data exists
+      if (!userData) {
+          return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Send user data in the response
+      res.json({ message: 'Protected route accessed', user: userData });
+  } catch (error) {
+      // Handle any errors
+      console.error('Error fetching user data:', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 // Route to get all users
 router.get('/:id', verifyToken, async (req,res) =>{
   const userId = req.params.id;
