@@ -1,9 +1,9 @@
 POST http://localhost:3000/chatroom/messages
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzEzODE5NzQ2LCJleHAiOjE3MTM4MjMzNDZ9.RQQmMKoZmNy0Gw2iuaYRlJ_RETZJ1zIucWOkfxFDtL0
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzEzOTUwNzMyLCJleHAiOjE3MTM5NTQzMzJ9.tcHlxkaGH33aiVbHAx8vn-uAv2Sq25zTNKaT9oxi4_M
 
 {   
-    "message": "hello",
+    "message": "This is wednesday morning",
     "user1Id": 31,
     "user2Id": 10,
     "chatroomId": "d767bb23-4b8c-4514-8bd8-73fe8b2ed922"
