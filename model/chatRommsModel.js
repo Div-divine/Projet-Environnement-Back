@@ -21,7 +21,7 @@ class ChatRoom {
         return rows;
     }
     static async getAllMsgs(user1Id, user2Id){
-      const [rows] = await dbQuery('SELECT * FROM messages WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)',[user1Id, user2Id, user2Id, user1Id]);
+      const [rows] = await dbQuery('SELECT * FROM messages WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?) ORDER BY msg_created',[user1Id, user2Id, user2Id, user1Id]);
       return rows;
     }
     static async updateMsgReadStatusById(msgId, chatroomId, received = true){

@@ -1,0 +1,3 @@
+GET http://localhost:3000/chatroom/exists-chatroom/10/31
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzEzOTY2Njk5LCJleHAiOjE3MTM5NzAyOTl9.8v--vOoPqxzKwFhfQ3VjwCoODjSaIS_w_kT0SgMIUcA
