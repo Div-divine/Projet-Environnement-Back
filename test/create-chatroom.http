@@ -1,9 +1,9 @@
 POST http://localhost:3000/chatroom/
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiRGFuaWVsIiwiaWF0IjoxNzEzNzc3ODcxLCJleHAiOjE3MTM3ODE0NzF9.qnotzJm_mcyLvXcGHGI2v1NUG0VKaQnkVF1fqgwxRMY
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzEzOTYzMzU1LCJleHAiOjE3MTM5NjY5NTV9.oKpE5Ee618sn8qlobG2691wt7XZ7r6NRtCm8b3NI6Ko
 
 {
-    "user1Id": 4,
-    "user2Id": 2
+    "user1Id": 10,
+    "user2Id": 31
 }
 

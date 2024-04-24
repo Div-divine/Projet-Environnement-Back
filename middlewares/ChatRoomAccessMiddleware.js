@@ -1,10 +1,10 @@
 import ChatRoom from "../model/chatRommsModel.js";
 
 async function createChatroom(req, res, next) {
-    const { user1Id, user2Id } = req.body;
     try {
-        // Await the result of the dbQuery function
-        const chatroom = await ChatRoom.createChatRoom(user1Id, user2Id);
+        const { user1Id, user2Id } = req.body;
+        const exists = await ChatRoom.GetChatRommId(user1Id, user2Id)
+
         if (!user1Id) {
             return res.status(404).json({ status: 404, message: 'Unable to add first user' });
         }
@@ -14,8 +14,14 @@ async function createChatroom(req, res, next) {
         if (!user1Id && !user2Id) {
             return res.status(404).json({ status: 404, message: 'Can\'t create chatroom' });
         }
-        console.log('chatroom created successfully');
-        res.send('chatroom created successfully');
+
+        if (exists) {
+            return res.status(404).json({ status: 404, message: 'Chatroom already created' });
+        }
+
+        // Await the result of the dbQuery function
+        const chatroom = await ChatRoom.createChatRoom(user1Id, user2Id);
+
         next();
     } catch (error) {
         // Handle error
