@@ -1,7 +1,8 @@
 import { Router } from "express";
 import verifyToken from "../middlewares/webtokenMiddleware.js";
 import ChatRoom from "../model/chatRommsModel.js";
-import getUsersMsg from '../middlewares/GetAllMsgMiddleware.js'
+import getUsersMsg from '../middlewares/GetAllMsgMiddleware.js';
+import updateMsgStatus from "../middlewares/UpdateMsgReadStatusMiddleware.js";
 
 const router = Router();
 
@@ -26,6 +27,10 @@ router.get('/:senderId/:receiverId', getUsersMsg, verifyToken, async (req, res) 
     console.error('Error fetching user data:', error)
     res.status(500).json({ status: 500, message: 'Internal server error' });
   }
+});
+
+router.post('/update-msg-status', updateMsgStatus, verifyToken, (req, res) => {
+    res.json({ message: 'Message satus successfully updated'})
 });
 
 export default router;
