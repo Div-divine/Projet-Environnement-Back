@@ -44,7 +44,22 @@ router.get('/userwithgroups', verifyToken, async (req, res) => {
     console.error('User and group not found:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-})
+});
+
+
+router.get('/group-with-users/:id', verifyToken, async (req, res, next) => {
+  try {
+    const groupId = req.params.id;
+    if (!groupId) {
+      return res.status(404).json({ message: 'Group not found' });
+    }
+    const groupUsers = await UsersGroups.selectAllUsersOfAgroup(groupId);
+    res.send(groupUsers);
+  } catch (error) {
+    console.error('User and group not found:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
 

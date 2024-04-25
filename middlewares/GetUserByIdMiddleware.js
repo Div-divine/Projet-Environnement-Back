@@ -8,7 +8,6 @@ async function getUserById(req, res) {
     try {
         // Query the database to get the user by ID
         const [rows] = await dbQuery('SELECT * FROM users WHERE user_id = ?', [userId]);
-
         // Check if user exists
         if (!rows.length) {
             return res.status(404).json({ message: 'User not found' });

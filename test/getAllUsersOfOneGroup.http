@@ -1,0 +1,4 @@
+GET http://localhost:3000/usergroups/group-with-users/1
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE0MDYwNTQ2LCJleHAiOjE3MTQwNjQxNDZ9.L8p9kPCWM-IYb5xgw-xEvLv8VkUIMj-NbzpLa3yDUF4
+
