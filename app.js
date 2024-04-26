@@ -12,7 +12,8 @@ import groupsRouter from './routes/groups.js';
 import usersGroupsRouter from './routes/usersGroups.js';
 import countRouter from './routes/count.js';
 import chatRoomsrouter from './routes/chatRooms.js';
-import userMsgRouter from './routes/messages.js'
+import userMsgRouter from './routes/messages.js';
+import postsRouter from './routes/posts.js'
 
 
 const app = express();
@@ -31,6 +32,7 @@ app.use('/usergroups', usersGroupsRouter);
 app.use('/count', countRouter);
 app.use('/chatroom', chatRoomsrouter);
 app.use('/messages', userMsgRouter);
+app.use('/posts', postsRouter)
 
 
 // catch 404 and forward to error handler
