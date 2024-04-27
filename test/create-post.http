@@ -1,9 +1,9 @@
 POST http://localhost:3000/posts/
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE0MTUwMjkxLCJleHAiOjE3MTQxNTM4OTF9.kvtVzo-tTvs7S5xJpF17z77GxEqFJFA3DqAZIoPGB6Q
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE0MjIyODQ0LCJleHAiOjE3MTQyMjY0NDR9.6ZNluHU9DFjJt1IIOCtLJVMxMyGNfAMuYTDWDL8TQxU
 
 {
-  "postContent": "Chers amis de l'environnement,Nous avons besoin de votre aide pour préserver la beauté naturelle de notre littoral ! Rejoignez-nous pour une journée de nettoyage de plage le 12 Septembre 2024 à 10h30. Ensemble, nous pouvons faire une réelle différence en ramassant les déchets et en protégeant la vie marine.Que vous soyez seul, en famille ou avec des amis, chaque main compte ! Apportez vos gants, sacs poubelles réutilisables et votre bonne humeur. Ensemble, nous pouvons créer un impact positif sur notre environnement local. N'oubliez pas de partager cet événement avec vos proches et de mobiliser autant de personnes que possible. Plus nous serons nombreux, plus nous pourrons accomplir de grandes choses ! Ensemble, faisons de notre littoral un endroit propre et accueillant pour tous. À bientôt sur la plage !",
+  "postContent": "amis de l'environnement,Nous avons besoin de votre aide pour préserver la beauté naturelle de notre littoral ! Rejoignez-nous pour une journée de nettoyage de plage le 12 Septembre 2024 à 10h30. Ensemble, nous pouvons faire une réelle différence en ramassant les déchets et en protégeant la vie marine.Que vous soyez seul, en famille ou avec des amis, chaque main compte ! Apportez vos gants, sacs poubelles réutilisables et votre bonne humeur. Ensemble, nous pouvons créer un impact positif sur notre environnement local. N'oubliez pas de partager cet événement avec vos proches et de mobiliser autant de personnes que possible. Plus nous serons nombreux, plus nous pourrons accomplir de grandes choses ! Ensemble, faisons de notre littoral un endroit propre et accueillant pour tous. À bientôt sur la plage !",
   "groupId" : "1",
   "userId" : "31"
 }
