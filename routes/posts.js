@@ -18,6 +18,17 @@ router.post('/', postInsertion, verifyToken, async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+router.post('/incognito', postInsertion, verifyToken, async (req, res) => {
+    try {
+        const { postContent, groupId, userId } = req.body;
+        const createPost = await Posts.insertUserDataIntoPostIncognito(postContent, groupId, userId);
+
+        res.send('Incognito Post created successfully'); // Send only the count value
+    } catch (error) {
+        console.error('Error creting Incognito post:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 router.get('/:id', getPosts, verifyToken, async (req, res) => {
     try {
