@@ -1,0 +1,9 @@
+POST http://localhost:3000/posts/comment
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE0Mjk5MDkyLCJleHAiOjE3MTQzMDI2OTJ9.T42sBiS_NUc6k8W2I12X86Kf1YK7JI7LjHnV-b5fR5M
+
+{
+    "commentMsg": "Je suis hyper motivé. Je viendrai avec mes amis, ça nous ferra une belle sortie :) ",
+    "postId": 1,
+    "userId": 11
+}

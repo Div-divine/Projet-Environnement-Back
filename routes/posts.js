@@ -3,6 +3,8 @@ import Posts from '../model/postsModel.js';
 import verifyToken from "../middlewares/webtokenMiddleware.js";
 import postInsertion from '../middlewares/ValidatePostsInsertMiddleware.js';
 import getPosts from '../middlewares/GetPostMiddleware.js';
+import validateComment from '../middlewares/ValidateCommentsMiddleware.js';
+import Comments from '../model/commentsModel.js';
 
 
 const router = Router();
@@ -40,6 +42,19 @@ router.get('/:id', getPosts, verifyToken, async (req, res) => {
         res.send(getPost); // Send only the count value
     } catch (error) {
         console.error('Error fetching posts:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.post('/comment', validateComment, verifyToken, async (req, res) => {
+    try {
+        const { commentMsg, postId, userId } = req.body;
+
+        const makeComment = await Comments.createPostComments(commentMsg, postId, userId);
+
+        res.send('Post comment created successfully!'); // Send only the count value
+    } catch (error) {
+        console.error('Error creting post comment:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
