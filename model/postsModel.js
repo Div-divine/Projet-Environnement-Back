@@ -13,6 +13,11 @@ class Posts{
         const [rows] = await dbQuery('INSERT INTO posts (post_content, group_id, user_id, incognito) VALUES (?, ?, ?, ?)', [postContent, groupId, userId, incognito]);
         return rows;
     }
+    static async selectAllPostComments(postId){
+        const [rows] = await dbQuery('SELECT * FROM  comments JOIN  users ON comments.user_id = users.user_id WHERE post_id = ?', [postId]);
+        return rows;
+    }
+    
 }
 
 export default Posts;

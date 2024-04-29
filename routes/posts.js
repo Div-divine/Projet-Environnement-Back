@@ -5,6 +5,7 @@ import postInsertion from '../middlewares/ValidatePostsInsertMiddleware.js';
 import getPosts from '../middlewares/GetPostMiddleware.js';
 import validateComment from '../middlewares/ValidateCommentsMiddleware.js';
 import Comments from '../model/commentsModel.js';
+import getPostComments from '../middlewares/GetPostCommentsMiddleware.js';
 
 
 const router = Router();
@@ -59,6 +60,21 @@ router.post('/comment', validateComment, verifyToken, async (req, res) => {
     }
 });
 
+router.get('/get-comments/:id', getPostComments, verifyToken, async (req, res) => {
+    try {
+        const postId = req.params.id;
+
+        const getComments = await Posts.selectAllPostComments(postId);
+        if(!getComments.length > 0){
+            return res.status(404).json({ message: 'No comment found for this post' });
+        }
+
+        res.send(getComments); // Send comments of post
+    } catch (error) {
+        console.error('Error creting post comment:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 
 export default router;
