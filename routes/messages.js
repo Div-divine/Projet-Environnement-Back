@@ -14,7 +14,7 @@ router.get('/:senderId/:receiverId', getUsersMsg, verifyToken, async (req, res) 
     const messages = await ChatRoom.getAllMsgs(senderId, receiverId);
     // Check if there is no message exists
     if (!messages.length > 0) {
-      return res.status(404).json({ status: 404, message: 'No message found' });
+      return res.send('No message found');
     }
     // Verifier si le message requêté fait parti d'un chatroom
     if(!messages.every(message => message.hasOwnProperty('chatroom_id'))){

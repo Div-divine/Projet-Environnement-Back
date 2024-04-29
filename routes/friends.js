@@ -3,6 +3,7 @@ import validateFriendRequest from '../middlewares/ValidateFriendshipMiddleware.j
 import Friends from '../model/UserfriendsModel.js';
 import verifyToken from '../middlewares/webtokenMiddleware.js';
 import verifyFriendPair from '../middlewares/EnsureOneFriendrequestMiddleware.js';
+import checkUserFriends from '../middlewares/GetUserFriendsMiddleware.js';
 
 const router = Router();
 
@@ -18,5 +19,22 @@ router.post('/', verifyFriendPair, validateFriendRequest, verifyToken, async (re
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+router.get('/:id', checkUserFriends, verifyToken, async (req, res) => {
+    try {
+        const userId = req.params.id;
+
+        const getUserfriends = await Friends.getAllUsersFriends(userId)
+        if(!getUserfriends.length > 0){
+            res.json({message: 'No friend found '})
+        }
+
+        res.send(getUserfriends); // Send user frineds
+    } catch (error) {
+        console.error('Error getting user friends:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 
 export default router;

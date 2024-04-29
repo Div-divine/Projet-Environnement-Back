@@ -1,0 +1,3 @@
+GET http://localhost:3000/friends/27
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE0NDIxNjE2LCJleHAiOjE3MTQ0MjUyMTZ9.Ut-QE9dV1xe0zZGKzJ1p6oyAKsXwq3TZX2noiW6oJys

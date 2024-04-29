@@ -4,7 +4,7 @@ async function addUserMessages(req, res, next) {
     const { message, user1Id, user2Id, chatroomId } = req.body;
     try {
         if(!message.length > 0 ){
-            return res.status(404).json({ status: 404, message: 'No message to send' });
+            return res.json({ status: 404, message: 'No message to send' });
         }
         if (!user1Id) {
             return res.status(404).json({ status: 404, message: 'Unable to add first user' });

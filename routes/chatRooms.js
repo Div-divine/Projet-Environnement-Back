@@ -8,7 +8,7 @@ import ChatRoom from "../model/chatRommsModel.js";
 
 const router = Router();
 
-router.post('/', createChatroom, verifyToken, async (req, res, next) => {
+router.post('/', createChatroom, verifyToken, async (req, res) => {
 });
 
 router.get('/exists-chatroom/:user1Id/:user2Id', verifyToken, async (req, res) => {
@@ -30,7 +30,7 @@ router.get('/exists-chatroom/:user1Id/:user2Id', verifyToken, async (req, res) =
 
 });
 
-router.get('/chatroom-id/:user1Id/:user2Id', verifyToken, getchatRoomId, (res, req, next) => {
+router.get('/chatroom-id/:user1Id/:user2Id', getchatRoomId, verifyToken, (res, req, next) => {
   //Tout est fait dans le middleware createChatroom
 });
 

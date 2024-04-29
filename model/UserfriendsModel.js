@@ -6,8 +6,13 @@ class Friends{
          return rows;
     }
     static async selectFriendsPair(user1Id, user2Id){
-         const [rows] = await dbQuery('SELECT * FROM friendships WHERE user1_id = ? AND user2_id = ? OR user1_id = ? AND user2_id = ?',[user1Id, user2Id, user2Id, user1Id]);
-         return rows;
+        const [rows] = await dbQuery('SELECT * FROM friendships WHERE user1_id= ? AND user2_id = ? OR user1_id = ? AND user2_id = ? ',[user1Id, user2Id, user2Id, user1Id])
+        return rows;
+    }
+
+    static async getAllUsersFriends(userId){
+        const [rows] = await dbQuery('SELECT * FROM friendships f JOIN users u ON u.user_id = CASE WHEN f.user1_id = ? THEN f.user2_id ELSE f.user1_id END WHERE f.user1_id = ? OR f.user2_id = ?',[userId, userId, userId]);
+        return rows;
     }
 }
 
