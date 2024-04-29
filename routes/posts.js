@@ -66,7 +66,7 @@ router.get('/get-comments/:id', getPostComments, verifyToken, async (req, res) =
 
         const getComments = await Posts.selectAllPostComments(postId);
         if(!getComments.length > 0){
-            return res.status(404).json({ message: 'No comment found for this post' });
+            return res.json({ message: 'No comment found for this post' });
         }
 
         res.send(getComments); // Send comments of post
