@@ -2,11 +2,12 @@ import { Router } from 'express';
 import validateFriendRequest from '../middlewares/ValidateFriendshipMiddleware.js';
 import Friends from '../model/UserfriendsModel.js';
 import verifyToken from '../middlewares/webtokenMiddleware.js';
+import verifyFriendPair from '../middlewares/EnsureOneFriendrequestMiddleware.js';
 
 const router = Router();
 
 
-router.post('/', validateFriendRequest, verifyToken, async (req, res) => {
+router.post('/', verifyFriendPair, validateFriendRequest, verifyToken, async (req, res) => {
     try {
         const { user1Id, user2Id } = req.body;
         const friendshipRequest = await Friends.createFriends(user1Id, user2Id);

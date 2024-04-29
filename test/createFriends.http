@@ -3,6 +3,6 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE0NDAwMjUyLCJleHAiOjE3MTQ0MDM4NTJ9.rl3mClquX9A9LgZjeLqzKVLD3NPMZr5jO3p51XTcmtI
 
 {
-  "user1Id": 10,
-  "user2Id": 31
+  "user1Id": 31,
+  "user2Id": 10
 }
