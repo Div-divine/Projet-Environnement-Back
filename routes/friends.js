@@ -25,9 +25,6 @@ router.get('/:id', checkUserFriends, verifyToken, async (req, res) => {
         const userId = req.params.id;
 
         const getUserfriends = await Friends.getAllUsersFriends(userId)
-        if(!getUserfriends.length > 0){
-            res.json({message: 'No friend found '})
-        }
 
         res.send(getUserfriends); // Send user frineds
     } catch (error) {
