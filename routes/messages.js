@@ -30,7 +30,7 @@ router.get('/:senderId/:receiverId', getUsersMsg, verifyToken, async (req, res) 
 });
 
 router.post('/update-msg-status', updateMsgStatus, verifyToken, (req, res) => {
-    res.json({ message: 'Message satus successfully updated'})
+    res.json({ message: 'Message status successfully updated'})
 });
 
 export default router;

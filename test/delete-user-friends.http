@@ -1,0 +1,3 @@
+DELETE http://localhost:3000/friends/27/33
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE0Njc4MDM5LCJleHAiOjE3MTQ2ODE2Mzl9._lHCNfLD_E7GRm1SDkM4Qdn-6u1fjAlVrJEfN5cIHIs
