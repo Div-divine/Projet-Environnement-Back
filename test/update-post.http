@@ -1,0 +1,7 @@
+PUT http://localhost:3000/posts/3
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE0ODQ2MTExLCJleHAiOjE3MTQ4NDk3MTF9.IU-EaecweL0QlyCPtzOHA5e8t-7nbu3eC3mX4GdLSzM
+
+{
+    "postContent": "Je suis très contente de faire partir de ce grand mouvement! "
+}

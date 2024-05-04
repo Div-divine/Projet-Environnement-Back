@@ -6,6 +6,7 @@ import getPosts from '../middlewares/GetPostMiddleware.js';
 import validateComment from '../middlewares/ValidateCommentsMiddleware.js';
 import Comments from '../model/commentsModel.js';
 import getPostComments from '../middlewares/GetPostCommentsMiddleware.js';
+import checkPostUpdate from '../middlewares/CheckPostToUpdateMiddleware.js';
 
 
 const router = Router();
@@ -89,7 +90,22 @@ router.delete('/:id', verifyToken, async (req, res) => {
 
         res.send('Post deleted successfully');
     } catch (error) {
-        console.error('Error deleting friend:', error);
+        console.error('Error deleting post:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.put('/:id',checkPostUpdate, verifyToken, async (req, res) => {
+    try {
+        const postId = req.params.id;
+        const postContent = req.body.postContent;
+        // update post
+
+        await Posts.updateUserPost(postContent, postId);
+
+        res.send('Post updated successfully');
+    } catch (error) {
+        console.error('Error updating post:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

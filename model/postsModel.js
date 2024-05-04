@@ -6,7 +6,7 @@ class Posts{
         return rows;
     }
     static async selectAllPostWithUser(groupId){
-        const [rows] = await dbQuery('SELECT * FROM  posts JOIN  users ON posts.user_id = users.user_id WHERE group_id = ?', [groupId]);
+        const [rows] = await dbQuery('SELECT * FROM  posts JOIN  users ON posts.user_id = users.user_id WHERE group_id = ? ORDER BY post_created DESC', [groupId]);
         return rows;
     }
     static async insertUserDataIntoPostIncognito(postContent, groupId, userId, incognito = true){
@@ -19,6 +19,10 @@ class Posts{
     }
     static  async deletePosts(postId){
         const [rows] = await dbQuery('DELETE FROM posts WHERE post_id = ?',[postId]);
+        return rows;
+    }
+    static async updateUserPost(postContent, postId){
+        const [rows] = await dbQuery('UPDATE posts SET post_content = ? WHERE post_id = ?',[postContent, postId]);
         return rows;
     }
     
