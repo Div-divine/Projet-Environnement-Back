@@ -77,4 +77,22 @@ router.get('/get-comments/:id', getPostComments, verifyToken, async (req, res) =
 });
 
 
+router.delete('/:id', verifyToken, async (req, res) => {
+    try {
+        const postId = req.params.id;
+
+        // Delete post from comments first because of the foreign key
+        await Comments.deleteComments(postId);
+
+        // Delete post
+        await Posts.deletePosts(postId);
+
+        res.send('Post deleted successfully');
+    } catch (error) {
+        console.error('Error deleting friend:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
 export default router;

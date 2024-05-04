@@ -17,6 +17,10 @@ class Posts{
         const [rows] = await dbQuery('SELECT * FROM  comments JOIN  users ON comments.user_id = users.user_id WHERE post_id = ?', [postId]);
         return rows;
     }
+    static  async deletePosts(postId){
+        const [rows] = await dbQuery('DELETE FROM posts WHERE post_id = ?',[postId]);
+        return rows;
+    }
     
 }
 
