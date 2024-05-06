@@ -7,6 +7,7 @@ import validateComment from '../middlewares/ValidateCommentsMiddleware.js';
 import Comments from '../model/commentsModel.js';
 import getPostComments from '../middlewares/GetPostCommentsMiddleware.js';
 import checkPostUpdate from '../middlewares/CheckPostToUpdateMiddleware.js';
+import checkUpdateComment from '../middlewares/UpdateCommentMiddleware.js';
 
 
 const router = Router();
@@ -82,7 +83,7 @@ router.delete('/:id', verifyToken, async (req, res) => {
     try {
         const postId = req.params.id;
 
-        // Delete post from comments first because of the foreign key
+        // Delete post comments first because of the foreign key
         await Comments.deleteComments(postId);
 
         // Delete post
@@ -101,7 +102,7 @@ router.put('/:id',checkPostUpdate, verifyToken, async (req, res) => {
         const postContent = req.body.postContent;
         // update post
 
-        await Posts.updateUserPost(postContent, postId);
+        await Posts.updateUserPost(postId, postContent);
 
         res.send('Post updated successfully');
     } catch (error) {
@@ -110,5 +111,33 @@ router.put('/:id',checkPostUpdate, verifyToken, async (req, res) => {
     }
 });
 
+router.delete('/comment/:id', verifyToken, async (req, res) => {
+    try {
+        const commentId = req.params.id;
+
+        // Delete post comment
+        await Comments.deleteUserCommentOnly(commentId);
+
+        res.send('comment deleted successfully');
+    } catch (error) {
+        console.error('Error deleting comment:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.put('/comment/:id', checkUpdateComment, verifyToken, async (req, res) => {
+    try {
+        const commentId = req.params.id;
+        const updateContent = req.body.updateContent;
+        // update comment
+        await Comments.updateUserComment(commentId, updateContent)
+       
+
+        res.send('Comment updated successfully');
+    } catch (error) {
+        console.error('Error updating comment:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 export default router;

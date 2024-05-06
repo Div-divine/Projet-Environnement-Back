@@ -9,6 +9,15 @@ class Comments{
         const [rows] = await dbQuery('DELETE FROM comments WHERE post_id = ?',[postId]);
         return rows;
     }
+
+    static async deleteUserCommentOnly(commentId){
+        const [rows] = await dbQuery('DELETE FROM comments WHERE comment_id = ? ',[commentId]);
+        return rows;
+    }
+    static async updateUserComment(commentId, commentUpdate){
+        const [rows] = await dbQuery('UPDATE comments SET comment_msg = ? WHERE comment_id = ?',[commentUpdate, commentId]);
+        return rows;
+    }
 }
 
 export default Comments;

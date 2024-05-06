@@ -1,0 +1,7 @@
+PUT http://localhost:3000/posts/comment/10
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE0OTg2NTY5LCJleHAiOjE3MTQ5OTAxNjl9.3im4WpjGWUBkGB685d13y05UcVk9_jlnRvy-fKFXaR0
+
+{
+  "updateContent" : "Super!"
+}

@@ -21,7 +21,7 @@ class Posts{
         const [rows] = await dbQuery('DELETE FROM posts WHERE post_id = ?',[postId]);
         return rows;
     }
-    static async updateUserPost(postContent, postId){
+    static async updateUserPost(postId, postContent){
         const [rows] = await dbQuery('UPDATE posts SET post_content = ? WHERE post_id = ?',[postContent, postId]);
         return rows;
     }
