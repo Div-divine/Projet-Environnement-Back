@@ -1,0 +1,3 @@
+GET http://localhost:3000/messages/unreadMsg/10
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE1MDkxMjQzLCJleHAiOjE3MTUxMjcyNDN9.rFogN8WC8E-Ue4EkAdg71i6ZpqaA4hk7BTT5UW_ANfE

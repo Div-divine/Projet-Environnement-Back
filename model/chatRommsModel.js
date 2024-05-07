@@ -25,7 +25,12 @@ class ChatRoom {
       return rows;
     }
     static async updateMsgReadStatusById(msgId, chatroomId, received = true){
-        const [rows] = await dbQuery('UPDATE messages SET msg_read = ? WHERE msg_id = ? AND chatroom_id = ? ', [received, msgId, chatroomId])
+        const [rows] = await dbQuery('UPDATE messages SET msg_read = ? WHERE msg_id IN (?) AND chatroom_id = ? ', [received, msgId, chatroomId]);
+        return rows;
+    }
+    static async getAllFromUnreadMsgs(receiverId, msgState = false){
+        const [rows] = await dbQuery('SELECT sender.*, receiver.*, messages.* FROM messages JOIN users AS sender ON sender.user_id = messages.sender_id JOIN users AS receiver ON receiver.user_id = messages.receiver_id WHERE messages.receiver_id = ? AND messages.msg_read = ? ;',[receiverId, msgState]);
+        return rows;
     }
 }
 

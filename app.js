@@ -55,17 +55,20 @@ const io = new Server(server, {
 
 // Create socket connection
 io.on('connection', (socket) => {
-    console.log(`User Connected in socket: ${socket.id}`)
-    // Specify room id to identify users on each channel
-    socket.on("join_room", (data) => {
-        socket.join(data)
-    })
+    console.log(`User Connected in socket: ${socket.id}`);
 
-    // Get message sent and resend it to the front 
+    socket.on("join_room", (data) => {
+        socket.join(data.room);
+        // Emit an event to notify the sender that the receiver has joined the chatroom
+        io.to(data.senderId).emit("receiver_joined");
+    });
+
     socket.on("send_msg", (data) => {
         socket.to(data.room).emit("received_msg", { message: data.message });
-    })
-})
+    });
+
+});
+
 
 // Define port for Express server
 const PORT = process.env.SERVER_PORT;
