@@ -22,10 +22,9 @@ async function loginValidation(req, res, next) {
         if (!match) {
             return res.status(400).json({ message: 'Incorrect password' });
         }
-        console.log(rows[0])
+        
         // Generate JWT token 
         const token = jwt.sign({ userId: rows[0].user_id, username: rows[0].user_name }, secretKey, { expiresIn: '10h' });
-        console.log(token)
         // Attach token to response send it as data 
         res.status(200)
         .header("authentification", token)

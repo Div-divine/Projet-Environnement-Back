@@ -26,7 +26,7 @@ router.post('/', blockRegistrationOfSameUser, validateUserInput, async (req, res
 // Route for user authentication
 router.post('/login', loginValidation, (req, res) => {
   // Authentication successful, no need to handle it here
-  // Just send a success response if needed
+  // send a success response
   res.status(200).json({ message: 'Login successful' });
 });
 
