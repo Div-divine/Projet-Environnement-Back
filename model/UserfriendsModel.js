@@ -15,7 +15,7 @@ class Friends{
         return rows;
     }
     static async deleteUsersFromFriends(user1Id, user2Id){
-        const [rows] = await dbQuery('DELETE FROM friendships WHERE user1_id = ? AND user2_id = ?',[user1Id, user2Id]);
+        const [rows] = await dbQuery('DELETE FROM friendships WHERE user1_id = ? AND user2_id = ? OR  user1_id = ? AND user2_id = ?',[user1Id, user2Id, user2Id, user1Id]);
         return rows;
     }
 }
