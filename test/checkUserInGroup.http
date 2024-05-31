@@ -1,4 +1,8 @@
-GET http://localhost:3000/usergroups/group-with-users/1
+GET http://localhost:3000/usergroups/check-user-in-group
 content-type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE3MTYwNTM5LCJleHAiOjE3MTcxOTY1Mzl9.fHW8q-lPyZ9lCnd2lUL8Wh8Na7M4f5tqLn0uv6Q17RI
 
+{
+    "userId" : 31,
+     "groupId" : 1
+}

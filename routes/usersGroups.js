@@ -7,6 +7,7 @@ import { dbQuery } from '../db/db.js';
 import joinUsersWithGroups from '../middlewares/JoinUserWithGroupsMiddleware.js';
 
 
+
 const router = Router();
 
 router.post('/', enableOneUserInSameGroup, UserGroupsMiddleware, verifyToken, async (req, res) => {
@@ -27,7 +28,7 @@ router.post('/', enableOneUserInSameGroup, UserGroupsMiddleware, verifyToken, as
   }
 });
 
-router.get('/joinusergroups/:id', joinUsersWithGroups, verifyToken, async (req,res)=>{
+router.get('/joinusergroups/:id', joinUsersWithGroups, verifyToken, async (req, res) => {
   // No need to do anything here , all has been taken care of in middleware
 })
 
@@ -40,12 +41,29 @@ router.get('/userwithgroups', verifyToken, async (req, res) => {
     }
     const data = await UsersGroups.selectUserWithGroups(userId)
     res.send(data)
-  }catch (error) {
+  } catch (error) {
     console.error('User and group not found:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
+// Get a user if part of a group
+router.get('/check-user-in-group', verifyToken, async (req, res, next) => {
+  try {
+    const {userId, groupId } = req.body
+    if (!groupId && !userId) {
+      return res.status(404).json({ message: 'User and Group not found' });
+    }
+    const userInGroup = await UsersGroups.checkUserBelongsToAGroup(userId, groupId);
+    if(!userInGroup){
+      return res.json({ message: 'User with Group not found' });
+    }
+    res.send(userInGroup);
+  } catch (error) {
+    console.error('User and group not found:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
 
 router.get('/group-with-users/:id', verifyToken, async (req, res, next) => {
   try {
@@ -60,7 +78,6 @@ router.get('/group-with-users/:id', verifyToken, async (req, res, next) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 
 

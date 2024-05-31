@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import validateUserInput from '../middlewares/ValidateUsersMiddleware.js';
 import loginValidation from '../middlewares/UserLoginMiddleware.js';
-import getUserById from '../middlewares/GetUserByIdMiddleware.js';
 import verifyToken from '../middlewares/webtokenMiddleware.js';
 import Users from '../model/usersModel.js';
 import blockRegistrationOfSameUser from '../middlewares/CheckUserAlreadyExistsMiddleWare.js';
