@@ -48,7 +48,7 @@ router.get('/userwithgroups', verifyToken, async (req, res) => {
 });
 
 // Get a user if part of a group
-router.get('/check-user-in-group', verifyToken, async (req, res, next) => {
+router.post('/check-user-in-group/', verifyToken, async (req, res, next) => {
   try {
     const {userId, groupId } = req.body
     if (!groupId && !userId) {
