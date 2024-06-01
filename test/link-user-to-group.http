@@ -1,8 +1,8 @@
 POST http://localhost:3000/usergroups/
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoiRGFuaWVsIiwiaWF0IjoxNzEzMzY0MjE5LCJleHAiOjE3MTMzNjc4MTl9.ns2SJ0Sf74yKe69iRoX0du5g2oAw0fZNTbHfnk7-yeE
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE3MjQ0MTc1LCJleHAiOjE3MTcyODAxNzV9.DqGiMQYQzKVI2pCPuB2Kxb4LfPwKlb8OGoemYE7Lgds
 
 {
-  "userId" : 3,
-  "groupId" : 2
+  "userId" : 31,
+  "groupId" : 5
 }
