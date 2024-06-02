@@ -6,7 +6,7 @@ class UsersGroups {
         return rows;
     }
     static async CheckUserAlreadyExistsInAGroup(userId, groupId) {
-        const [rows] = await dbQuery('SELECT COUNT(*) AS count FROM users_actionsgroups WHERE user_id = ? AND group_id = ?', [userId, groupId])
+        const [rows] = await dbQuery('SELECT COUNT(*) AS count, quit_group AS quit FROM users_actionsgroups WHERE user_id = ? AND group_id = ?', [userId, groupId])
         console.log(rows[0])
         return rows[0]
     }

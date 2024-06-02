@@ -9,8 +9,8 @@ class Posts{
         const [rows] = await dbQuery('SELECT * FROM  posts JOIN  users ON posts.user_id = users.user_id WHERE group_id = ? ORDER BY post_created DESC', [groupId]);
         return rows;
     }
-    static async insertUserDataIntoPostIncognito(postContent, groupId, userId, incognito = true){
-        const [rows] = await dbQuery('INSERT INTO posts (post_content, group_id, user_id, incognito) VALUES (?, ?, ?, ?)', [postContent, groupId, userId, incognito]);
+    static async insertUserDataIntoPostIncognito(postContent, groupId, userId, incognito = true, postUserQuit = false){
+        const [rows] = await dbQuery('INSERT INTO posts (post_content, group_id, user_id, incognito, post_user_quit) VALUES (?, ?, ?, ?, ?)', [postContent, groupId, userId, incognito, postUserQuit]);
         return rows;
     }
     static async selectAllPostComments(postId){
