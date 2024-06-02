@@ -1,8 +1,8 @@
 import { dbQuery } from "../db/db.js";
 
 class Posts{
-    static async insertUserDataIntoPost(postContent, groupId, userId, incognito = false){
-        const [rows] = await dbQuery('INSERT INTO posts (post_content, group_id, user_id, incognito) VALUES (?, ?, ?, ?)', [postContent, groupId, userId, incognito]);
+    static async insertUserDataIntoPost(postContent, groupId, userId, incognito = false, postUserQuit = false){
+        const [rows] = await dbQuery('INSERT INTO posts (post_content, group_id, user_id, incognito, post_user_quit) VALUES (?, ?, ?, ?, ?)', [postContent, groupId, userId, incognito, postUserQuit]);
         return rows;
     }
     static async selectAllPostWithUser(groupId){
