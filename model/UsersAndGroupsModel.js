@@ -11,7 +11,7 @@ class UsersGroups {
         return rows[0]
     }
     static async selectUserWithGroups(userId) {
-        const [rows] = await dbQuery("SELECT COALESCE(users_actionsgroups.user_id, users.user_id) AS user_id, users_actionsgroups.group_id AS user_group_id, users.*,  actionsgroups.* FROM  users LEFT JOIN  users_actionsgroups ON users.user_id = users_actionsgroups.user_id LEFT JOIN  actionsgroups ON users_actionsgroups.group_id = actionsgroups.group_id WHERE  users.user_id = ?",[userId]);
+        const [rows] = await dbQuery("SELECT COALESCE(users_actionsgroups.user_id, users.user_id) AS user_id, users_actionsgroups.group_id AS user_group_id, users_actionsgroups.quit_group AS user_quit_group, users.*,  actionsgroups.* FROM  users LEFT JOIN  users_actionsgroups ON users.user_id = users_actionsgroups.user_id LEFT JOIN  actionsgroups ON users_actionsgroups.group_id = actionsgroups.group_id WHERE  users.user_id = ?",[userId]);
         return rows;
     }
     static async SelectAllUsers(userId){
