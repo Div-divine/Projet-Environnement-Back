@@ -5,6 +5,10 @@ import UsersGroups from '../model/UsersAndGroupsModel.js';
 import enableOneUserInSameGroup from '../middlewares/EnableOneEntryUserAndSameGroupMiddleware.js';
 import { dbQuery } from '../db/db.js';
 import joinUsersWithGroups from '../middlewares/JoinUserWithGroupsMiddleware.js';
+import updateGroupUserQuits from '../middlewares/handleGroupWhenUserQuitsMiddleware.js';
+import Comments from '../model/commentsModel.js';
+import Posts from '../model/postsModel.js';
+
 
 
 
@@ -76,6 +80,27 @@ router.get('/group-with-users/:id', verifyToken, async (req, res, next) => {
   } catch (error) {
     console.error('User and group not found:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+})
+
+router.put('/quit-group/:id', updateGroupUserQuits, verifyToken, async (req, res) => {
+  try {
+      const postQuitSet = true;
+      const maskComment = true;
+      const quitGroup = true;
+      const groupId = req.params.id;
+      const userId = req.body.userId;
+      
+      // Update user posts and comments once user quits group and remove group from user group listing
+
+      await UsersGroups.updateGroupStatusOnceUserQuitsGroup(quitGroup, userId, groupId);
+      await Posts.updatePostStatusOnceUserQuitsGroup(postQuitSet, groupId, userId);
+      await Comments.updateCommentStatusOnceUserQuitsGroup(maskComment, userId, groupId)
+      
+      res.send('User No more in group');
+  } catch (error) {
+      console.error('Error updating post:', error);
+      res.status(500).json({ error: 'Internal server error' });
   }
 });
 

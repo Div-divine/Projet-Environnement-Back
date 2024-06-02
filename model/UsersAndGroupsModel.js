@@ -30,6 +30,10 @@ class UsersGroups {
         const [rows] = await dbQuery('SELECT user_id FROM users_actionsgroups WHERE user_id = ? AND group_id = ?',[userId, groupId]);
         return rows[0];
     }
+    static async updateGroupStatusOnceUserQuitsGroup(userQuitsGroup, userId, groupId){
+        const [rows] = await dbQuery('UPDATE users_actionsgroups SET quit_group = ? WHERE user_id = ? AND group_id = ? ', [userQuitsGroup, userId, groupId]);
+        return rows;
+    }
 }
 
 export default UsersGroups;

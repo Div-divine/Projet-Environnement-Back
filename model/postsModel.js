@@ -25,6 +25,10 @@ class Posts{
         const [rows] = await dbQuery('UPDATE posts SET post_content = ? WHERE post_id = ?',[postContent, postId]);
         return rows;
     }
+    static async updatePostStatusOnceUserQuitsGroup(postUserQuit , groupId, userId){
+        const [rows] = await dbQuery('UPDATE posts SET post_user_quit = ? WHERE posts.group_id = ? AND posts.user_id = ? ', [postUserQuit, groupId, userId]);
+        return rows;
+    }
     
 }
 

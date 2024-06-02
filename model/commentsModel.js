@@ -18,6 +18,10 @@ class Comments{
         const [rows] = await dbQuery('UPDATE comments SET comment_msg = ? WHERE comment_id = ?',[commentUpdate, commentId]);
         return rows;
     }
+    static async updateCommentStatusOnceUserQuitsGroup(maskCommentInGroup, userId, groupId){
+        const [rows] = await dbQuery('UPDATE comments c JOIN users u ON c.user_id = u.user_id JOIN users_actionsgroups uag ON u.user_id = uag.user_id SET c.mask_comment_user = ? WHERE uag.user_id = ? AND uag.group_id = ?', [maskCommentInGroup, userId, groupId]);
+        return rows;
+    }
 }
 
 export default Comments;
