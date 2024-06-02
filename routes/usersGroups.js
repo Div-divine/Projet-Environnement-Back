@@ -102,6 +102,21 @@ router.put('/quit-group/:id', updateGroupUserQuits, verifyToken, async (req, res
       console.error('Error updating post:', error);
       res.status(500).json({ error: 'Internal server error' });
   }
+})
+
+router.get('/user-quit-group-status/:userId/:groupId', verifyToken, async (req, res, next) => {
+  try {
+    const { userId, groupId } = req.params;
+    const response = await UsersGroups.selectUserQuitGroupState(userId, groupId);
+    if (response) {
+      res.send(response);
+    } else {
+      res.status(404).send('User group status not found');
+    }
+  } catch (error) {
+    console.error('Error updating post:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 
