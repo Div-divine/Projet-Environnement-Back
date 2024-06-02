@@ -1,8 +1,8 @@
 import { dbQuery } from "../db/db.js";
 
 class Comments{
-    static async createPostComments(commentMsg, postId, userId){
-        const [rows] = await dbQuery('INSERT INTO comments (comment_msg, post_id, user_id) VALUES (?, ?, ?)',[commentMsg, postId, userId]);
+    static async createPostComments(commentMsg, postId, userId, maskCommentUser = false){
+        const [rows] = await dbQuery('INSERT INTO comments (comment_msg, post_id, user_id, mask_comment_user) VALUES (?, ?, ?, ?)',[commentMsg, postId, userId, maskCommentUser]);
         return rows;
     }
     static async deleteComments(postId){
