@@ -6,7 +6,7 @@ const genSalt = promisify(bcrypt.genSalt);
 const hash = promisify(bcrypt.hash);
 
 class Users {
-    static async createUser(name, pwd, email, statusId) {
+    static async createUser(name, pwd, email, statusId, showUserImg = true) {
         try {
             // Generate a salt
             const salt = await genSalt(10);
@@ -15,11 +15,10 @@ class Users {
             const hashedPassword = await hash(pwd, salt);
 
             // Insert the user into the database
-            const [result, filed] = await dbQuery('INSERT INTO users (user_name, user_pwd, user_email, status_id) VALUES (?, ?, ?, ?)',
-                [name, hashedPassword, email, statusId]
+            const [result, filed] = await dbQuery('INSERT INTO users (user_name, user_pwd, user_email, status_id, show_user_image) VALUES (?, ?, ?, ?, ?)',
+                [name, hashedPassword, email, statusId, showUserImg]
             );
 
-            console.log('User created successfully');
         } catch (err) {
             // Handle errors
             console.error('Error creating user:', err);

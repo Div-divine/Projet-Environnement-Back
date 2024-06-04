@@ -10,7 +10,6 @@ const router = Router();
 router.post('/', blockRegistrationOfSameUser, validateUserInput, async (req, res) => {
   try {
     const { username, email, password } = req.body;
-
     // Set status by default to 2 which is a normal user not an admin
     const statusId = 2;
     // Using model function createUser to insert user info
