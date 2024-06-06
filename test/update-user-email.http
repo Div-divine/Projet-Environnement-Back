@@ -1,0 +1,7 @@
+PUT http://localhost:3000/users/update-email/20
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE3NjY1MDk1LCJleHAiOjE3MTc3MDEwOTV9.vsWUCimfhiKQnKIBCLxRC0mh81UJC6un-WqeFi2gVCI
+
+{
+  "newEmail" : "leeh@gmail.com"
+}

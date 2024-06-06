@@ -49,7 +49,7 @@ class Users {
     }
     static async ensureUpdateEmailDoesNotAlreadyExists(updateEmail, userId){
         const [row] = await dbQuery('SELECT user_email FROM users WHERE user_email = ? AND user_id != ?',[updateEmail, userId]);
-        return row[0];
+        return row;
     }
 
     static async updateUserName(updateName, userId){
