@@ -42,6 +42,10 @@ class Users {
         const [row] = await dbQuery('SELECT user_id, user_name FROM users WHERE user_id != ? ORDER BY user_created DESC LIMIT 4',[userId]);
       return row;
     }
+    static async updateUserName(updateName, userId){
+        const [row] = await dbQuery('UPDATE users SET user_name = ? WHERE user_id = ?',[updateName, userId]);
+        return row;
+    }
 }
 
 export default Users;

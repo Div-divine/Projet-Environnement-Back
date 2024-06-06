@@ -4,6 +4,7 @@ import loginValidation from '../middlewares/UserLoginMiddleware.js';
 import verifyToken from '../middlewares/webtokenMiddleware.js';
 import Users from '../model/usersModel.js';
 import blockRegistrationOfSameUser from '../middlewares/CheckUserAlreadyExistsMiddleWare.js';
+import updateUserName from '../middlewares/updateUserNameMiddleware.js';
 
 const router = Router();
 
@@ -31,67 +32,81 @@ router.post('/login', loginValidation, (req, res) => {
 // Define route to get user by ID
 router.get('/info', verifyToken, async (req, res) => {
   try {
-      // Access user ID from request object
-      const userId = req.userId;
+    // Access user ID from request object
+    const userId = req.userId;
 
-      // Get user info using id gotten from web token
-      const userData = await Users.getUserById(userId);
+    // Get user info using id gotten from web token
+    const userData = await Users.getUserById(userId);
 
-      // Check if user data exists
-      if (!userData) {
-          return res.status(404).json({ error: 'User not found' });
-      }
+    // Check if user data exists
+    if (!userData) {
+      return res.status(404).json({ error: 'User not found' });
+    }
 
-      // Send user data in the response
-      res.json({ message: 'Protected route accessed', user: userData });
+    // Send user data in the response
+    res.json({ message: 'Protected route accessed', user: userData });
   } catch (error) {
-      // Handle any errors
-      console.error('Error fetching user data:', error);
-      res.status(500).json({ error: 'Internal server error' });
+    // Handle any errors
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 // Define route to get user by ID
 router.get('/user-data/:id', verifyToken, async (req, res) => {
   try {
-      // Access user ID from request object
-      const userId = req.params.id;
+    // Access user ID from request object
+    const userId = req.params.id;
 
-      // Get user info using id gotten from web token
-      const userData = await Users.getUserById(userId);
+    // Get user info using id gotten from web token
+    const userData = await Users.getUserById(userId);
 
-      // Check if user data exists
-      if (!userData) {
-          return res.status(404).json({ error: 'User not found' });
-      }
+    // Check if user data exists
+    if (!userData) {
+      return res.status(404).json({ error: 'User not found' });
+    }
 
-      // Send user data in the response
-      res.json({ message: 'Protected route accessed', user: userData });
+    // Send user data in the response
+    res.json({ message: 'Protected route accessed', user: userData });
   } catch (error) {
-      // Handle any errors
-      console.error('Error fetching user data:', error);
-      res.status(500).json({ error: 'Internal server error' });
+    // Handle any errors
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 
 // Route to get all users
-router.get('/:id', verifyToken, async (req,res) =>{
+router.get('/:id', verifyToken, async (req, res) => {
   const userId = req.params.id;
   const users = await Users.getAllUser(userId);
-  if(users.length < 0){
+  if (users.length < 0) {
     return res.status(404).json({ error: 'No user found' });
   }
   res.send(users);
 })
 // Route to get all only four users
-router.get('/limitusers/:id',verifyToken, async (req,res) =>{
+router.get('/limitusers/:id', verifyToken, async (req, res) => {
   const userId = req.params.id;
   const users = await Users.getOnlyFourUser(userId);
-  if(users.length < 0){
+  if (users.length < 0) {
     return res.status(404).json({ error: 'No user found' });
   }
   res.send(users);
+})
+
+// Update user name
+router.put('/update-name/:id', updateUserName, verifyToken, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const newName = req.body.newName;
+
+    const updateName = await Users.updateUserName(newName, userId);
+    res.json({ message: 'User name updated successfully'});
+  } catch (error) {
+    console.error('Error updating user name:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 })
 
 
