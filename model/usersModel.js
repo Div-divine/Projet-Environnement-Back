@@ -42,8 +42,22 @@ class Users {
         const [row] = await dbQuery('SELECT user_id, user_name FROM users WHERE user_id != ? ORDER BY user_created DESC LIMIT 4',[userId]);
       return row;
     }
+
+    static async ensureUpdateNameDoesNotAlreadyExists(updateName, userId){
+        const [row] = await dbQuery('SELECT user_name FROM users WHERE user_name = ? AND user_id != ?',[updateName, userId]);
+        return row;
+    }
+    static async ensureUpdateEmailDoesNotAlreadyExists(updateEmail, userId){
+        const [row] = await dbQuery('SELECT user_email FROM users WHERE user_email = ? AND user_id != ?',[updateEmail, userId]);
+        return row[0];
+    }
+
     static async updateUserName(updateName, userId){
         const [row] = await dbQuery('UPDATE users SET user_name = ? WHERE user_id = ?',[updateName, userId]);
+        return row;
+    }
+    static async updateUserEmail(updateEmail, userId){
+        const [row] = await dbQuery('UPDATE users SET user_email = ? WHERE user_id = ?',[updateEmail, userId]);
         return row;
     }
 }

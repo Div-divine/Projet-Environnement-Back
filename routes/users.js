@@ -100,9 +100,8 @@ router.put('/update-name/:id', updateUserName, verifyToken, async (req, res) => 
   try {
     const userId = req.params.id;
     const newName = req.body.newName;
-
-    const updateName = await Users.updateUserName(newName, userId);
-    res.json({ message: 'User name updated successfully'});
+    await Users.updateUserName(newName, userId);
+    res.json({ message: 'User name updated successfully' });
   } catch (error) {
     console.error('Error updating user name:', error);
     res.status(500).json({ error: 'Internal server error' });

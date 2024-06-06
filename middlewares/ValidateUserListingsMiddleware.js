@@ -7,7 +7,7 @@ function checkIfIdAdded(req, res, next) {
         next(); // Proceed to the next middleware
     } else {
         // ID does not exist in the params
-        res.status(400).json({ error: "No user ID provided" });
+        return res.status(400).json({ error: "No user ID provided" });
     }
 }
 

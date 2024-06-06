@@ -1,13 +1,19 @@
+import Users from "../model/usersModel.js";
 
-function updateUserName(req, res, next) {
+async function updateUserName(req, res, next) {
     try {
         const userId = req.params.id;
-        const newName = req.body.newName
+        const newName = req.body.newName;
+        const alreadyExistsName = await Users.ensureUpdateNameDoesNotAlreadyExists(newName, userId);
+        
+        if(alreadyExistsName.length > 0){
+            return res.status(409).json({ error: "User name already exists" });
+        }
         if (!userId) {
-            res.status(400).json({ error: "User not found" });
+            return res.status(404).json({ error: "User not found" });
         }
         if (!newName) {
-            res.status(400).json({ error: "Enter a name to update" });
+            return res.status(404).json({ error: "Enter a name to update" });
         }
 
         next();
