@@ -6,6 +6,7 @@ import Users from '../model/usersModel.js';
 import blockRegistrationOfSameUser from '../middlewares/CheckUserAlreadyExistsMiddleWare.js';
 import updateUserName from '../middlewares/updateUserNameMiddleware.js';
 import updateUserEmail from '../middlewares/updateUserEmailMiddleware.js';
+import updateUserPwd from '../middlewares/updateUserPwdMiddleware.js';
 
 const router = Router();
 
@@ -118,6 +119,19 @@ router.put('/update-email/:id', updateUserEmail, verifyToken, async (req, res) =
     res.json({ message: 'User email updated successfully' });
   } catch (error) {
     console.error('Error updating user name:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
+
+// Update user name
+router.put('/update-pwd/:id', updateUserPwd, verifyToken, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { confPwd ,newPwd } = req.body;
+    await Users.updateUserPwd(newPwd, userId);
+    res.json({ message: 'User password updated successfully!' });
+  } catch (error) {
+    console.error('Error updating user password:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 })

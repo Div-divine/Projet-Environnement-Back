@@ -30,35 +30,51 @@ class Users {
         return rows[0];
     }
 
-    static async getUserById(userId){
-      const[row] = await dbQuery('SELECT * FROM users WHERE user_id= ?', [userId]);
-      return row[0];
+    static async getUserById(userId) {
+        const [row] = await dbQuery('SELECT * FROM users WHERE user_id= ?', [userId]);
+        return row[0];
     }
-    static async getAllUser(userId){
-        const[row] = await dbQuery('SELECT user_id, user_name FROM users WHERE user_id != ? ORDER BY user_created DESC', [userId]);
-      return row;
-    }
-    static async getOnlyFourUser(userId){
-        const [row] = await dbQuery('SELECT user_id, user_name FROM users WHERE user_id != ? ORDER BY user_created DESC LIMIT 4',[userId]);
-      return row;
-    }
-
-    static async ensureUpdateNameDoesNotAlreadyExists(updateName, userId){
-        const [row] = await dbQuery('SELECT user_name FROM users WHERE user_name = ? AND user_id != ?',[updateName, userId]);
+    static async getAllUser(userId) {
+        const [row] = await dbQuery('SELECT user_id, user_name FROM users WHERE user_id != ? ORDER BY user_created DESC', [userId]);
         return row;
     }
-    static async ensureUpdateEmailDoesNotAlreadyExists(updateEmail, userId){
-        const [row] = await dbQuery('SELECT user_email FROM users WHERE user_email = ? AND user_id != ?',[updateEmail, userId]);
+    static async getOnlyFourUser(userId) {
+        const [row] = await dbQuery('SELECT user_id, user_name FROM users WHERE user_id != ? ORDER BY user_created DESC LIMIT 4', [userId]);
         return row;
     }
 
-    static async updateUserName(updateName, userId){
-        const [row] = await dbQuery('UPDATE users SET user_name = ? WHERE user_id = ?',[updateName, userId]);
+    static async ensureUpdateNameDoesNotAlreadyExists(updateName, userId) {
+        const [row] = await dbQuery('SELECT user_name FROM users WHERE user_name = ? AND user_id != ?', [updateName, userId]);
         return row;
     }
-    static async updateUserEmail(updateEmail, userId){
-        const [row] = await dbQuery('UPDATE users SET user_email = ? WHERE user_id = ?',[updateEmail, userId]);
+    static async ensureUpdateEmailDoesNotAlreadyExists(updateEmail, userId) {
+        const [row] = await dbQuery('SELECT user_email FROM users WHERE user_email = ? AND user_id != ?', [updateEmail, userId]);
         return row;
+    }
+
+    static async updateUserName(updateName, userId) {
+        const [row] = await dbQuery('UPDATE users SET user_name = ? WHERE user_id = ?', [updateName, userId]);
+        return row;
+    }
+    static async updateUserEmail(updateEmail, userId) {
+        const [row] = await dbQuery('UPDATE users SET user_email = ? WHERE user_id = ?', [updateEmail, userId]);
+        return row;
+    }
+    static async updateUserPwd(updatePwd, userId) {
+        try {
+
+            // Generate a salt
+            const salt = await genSalt(10);
+
+            // Hash the password using the salt
+            const hashedPassword = await hash(updatePwd, salt);
+            const [row] = await dbQuery('UPDATE users SET user_pwd = ? WHERE user_id = ?', [hashedPassword, userId]);
+            return row;
+
+        } catch (err) {
+            // Handle errors
+            console.error('Error creating user:', err);
+        }
     }
 }
 

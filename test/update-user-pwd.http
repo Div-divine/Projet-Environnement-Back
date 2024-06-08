@@ -1,0 +1,8 @@
+PUT http://localhost:3000/users/update-pwd/31
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE3ODQ2NjkzLCJleHAiOjE3MTc4ODI2OTN9.DwJ8hObbYkYJH43yJByHfWoirbjjOCUF0DaptIFJztw
+
+{
+  "confPwd": "Azerty@12",  
+  "newPwd" : "Azerty@123"
+}
