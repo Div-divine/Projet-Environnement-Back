@@ -31,6 +31,28 @@ router.post('/login', loginValidation, (req, res) => {
   res.status(200).json({ message: 'Login successful' });
 });
 
+// Send user image name to database
+router.post('/usr-img', verifyToken, async (req, res) => {
+  try {
+    const { userId, imageName } = req.body
+    // Get user image from database if already exists
+    const getImg = await Users.getUserImg(userId)
+
+    if (getImg.user_img != imageName) {
+      // If there is an existing image, we update the image to the current user uploaded image
+      await Users.updateUserImg(imageName, userId)
+      res.status(201).json({ message: 'User image updatted successfully' });
+    }
+
+    return ;
+    
+  } catch (error) {
+    console.error('Error creating user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 // Define route to get user by ID
 router.get('/info', verifyToken, async (req, res) => {
   try {
@@ -87,6 +109,8 @@ router.get('/:id', verifyToken, async (req, res) => {
   }
   res.send(users);
 })
+
+
 // Route to get all only four users
 router.get('/limitusers/:id', verifyToken, async (req, res) => {
   const userId = req.params.id;
@@ -127,7 +151,7 @@ router.put('/update-email/:id', updateUserEmail, verifyToken, async (req, res) =
 router.put('/update-pwd/:id', updateUserPwd, verifyToken, async (req, res) => {
   try {
     const userId = req.params.id;
-    const { confPwd ,newPwd } = req.body;
+    const { confPwd, newPwd } = req.body;
     await Users.updateUserPwd(newPwd, userId);
     res.json({ message: 'User password updated successfully!' });
   } catch (error) {

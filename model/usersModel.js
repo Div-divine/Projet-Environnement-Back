@@ -76,16 +76,25 @@ class Users {
             console.error('Error creating user:', err);
         }
     }
-    static async addUserImg(imgPath, userId) {
+    static async getUserImg(userId) {
         try {
-            const [row] = await dbQuery('INSERT INTO users(user_img) VALUE = ? WHERE user_id = ?', [imgPath, userId]);
-            return row;
-
+            const [row] = await dbQuery('SELECT user_img FROM users WHERE  user_id = ?', [userId]);
+            return row[0];
         } catch (err) {
             // Handle errors
             console.error('Error creating user:', err);
         }
     }
+    static async updateUserImg(newImgName, userId) {
+        try {
+            const [row] = await dbQuery('UPDATE users SET user_img = ? WHERE user_id = ?', [newImgName, userId]);
+            return row;
+        } catch (err) {
+            // Handle errors
+            console.error('Error creating user:', err);
+        }
+    }
+
 
 }
 
