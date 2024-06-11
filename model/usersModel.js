@@ -76,6 +76,17 @@ class Users {
             console.error('Error creating user:', err);
         }
     }
+    static async addUserImg(imgPath, userId) {
+        try {
+            const [row] = await dbQuery('INSERT INTO users(user_img) VALUE = ? WHERE user_id = ?', [imgPath, userId]);
+            return row;
+
+        } catch (err) {
+            // Handle errors
+            console.error('Error creating user:', err);
+        }
+    }
+
 }
 
 export default Users;

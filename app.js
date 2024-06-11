@@ -4,6 +4,7 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import createHttpError from 'http-errors';
+import path from 'path';
 
 // Get routes
 import indexRouter from './routes/index.js';
@@ -15,7 +16,7 @@ import chatRoomsrouter from './routes/chatRooms.js';
 import userMsgRouter from './routes/messages.js';
 import postsRouter from './routes/posts.js';
 import friendsRouter from './routes/friends.js';
-
+import fileUploadRouter from './routes/uploads.js';
 
 const app = express();
 
@@ -24,6 +25,13 @@ app.use(cors());
 
 // Body parser (configure it before defining routes)
 app.use(bodyParser.json());
+
+// Serve static files from the public directory
+const __filename = new URL(import.meta.url).pathname;
+// Default to relative path if PUBLIC_PATH is not set
+const publicDirectoryPath = process.env.PUBLIC_PATH || path.join(path.dirname(__filename), 'public');
+
+app.use(express.static(publicDirectoryPath));
 
 // Routes (define routes after configuring)
 app.use('/', indexRouter);
@@ -35,6 +43,7 @@ app.use('/chatroom', chatRoomsrouter);
 app.use('/messages', userMsgRouter);
 app.use('/posts', postsRouter);
 app.use('/friends', friendsRouter);
+app.use('/uploads', fileUploadRouter);
 
 
 // catch 404 and forward to error handler

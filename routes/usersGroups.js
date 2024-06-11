@@ -130,6 +130,22 @@ router.get('/user-quit-group-status/:userId/:groupId', verifyToken, async (req, 
   }
 });
 
+router.post('/upload-usr-img/', verifyToken, async (req, res, next) => {
+  try {
+    const { userImg, userId } = req.body
+    if (!groupId && !userId) {
+      return res.status(404).json({ message: 'User and Group not found' });
+    }
+    const userInGroup = await UsersGroups.checkUserBelongsToAGroup(userId, groupId);
+    if (!userInGroup) {
+      return res.json({ message: 'User with Group not found' });
+    }
+    res.send(userInGroup);
+  } catch (error) {
+    console.error('User and group not found:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
 
 
 export default router;
