@@ -95,6 +95,11 @@ class Users {
         }
     }
 
+    static async removeDisplayedUserImg(showUserImg, userId){
+        const [row] = await dbQuery('UPDATE users SET show_user_image = ? WHERE user_id = ?', [showUserImg, userId]);
+        return row;
+    }
+
 
 }
 

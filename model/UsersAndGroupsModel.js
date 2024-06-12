@@ -23,7 +23,7 @@ class UsersGroups {
         return rows;
     }
     static async selectAllUsersOfAgroup(groupId) {
-        const [rows] = await dbQuery('SELECT users.user_name, users.user_img FROM actionsgroups JOIN users_actionsgroups ON actionsgroups.group_id = users_actionsgroups.group_id JOIN users ON users_actionsgroups.user_id = users.user_id WHERE actionsgroups.group_id = ?', [groupId]);
+        const [rows] = await dbQuery('SELECT users.user_name, users.user_img, users.show_user_image FROM actionsgroups JOIN users_actionsgroups ON actionsgroups.group_id = users_actionsgroups.group_id JOIN users ON users_actionsgroups.user_id = users.user_id WHERE actionsgroups.group_id = ?', [groupId]);
         return rows;
     }
     static async checkUserBelongsToAGroup(userId, groupId) {

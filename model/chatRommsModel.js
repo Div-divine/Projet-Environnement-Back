@@ -29,7 +29,7 @@ class ChatRoom {
         return rows;
     }
     static async getAllFromUnreadMsgs(receiverId, msgState = false){
-        const [rows] = await dbQuery('SELECT sender.user_id AS sender_user_id, sender.user_name AS sender_user_name, sender.user_email AS sender_user_email, sender.status_id AS sender_status_id, sender.user_img AS sender_user_img, receiver.user_id AS receiver_user_id, receiver.user_name AS receiver_user_name, receiver.user_email AS receiver_user_email, receiver.status_id AS receiver_status_id, receiver.user_img AS receiver_user_img, messages.* FROM messages JOIN users AS sender ON sender.user_id = messages.sender_id JOIN users AS receiver ON receiver.user_id = messages.receiver_id WHERE messages.receiver_id = ? AND messages.msg_read = ?;',[receiverId, msgState]);
+        const [rows] = await dbQuery('SELECT sender.user_id AS sender_user_id, sender.user_name AS sender_user_name, sender.show_user_image AS sender_show_user_image, sender.user_email AS sender_user_email, sender.status_id AS sender_status_id, sender.user_img AS sender_user_img, receiver.user_id AS receiver_user_id, receiver.user_name AS receiver_user_name, receiver.user_email AS receiver_user_email, receiver.status_id AS receiver_status_id, receiver.user_img AS receiver_user_img, messages.* FROM messages JOIN users AS sender ON sender.user_id = messages.sender_id JOIN users AS receiver ON receiver.user_id = messages.receiver_id WHERE messages.receiver_id = ? AND messages.msg_read = ?;',[receiverId, msgState]);
         return rows;
     }
 }

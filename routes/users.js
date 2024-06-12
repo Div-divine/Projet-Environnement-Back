@@ -160,5 +160,22 @@ router.put('/update-pwd/:id', updateUserPwd, verifyToken, async (req, res) => {
   }
 })
 
+// Update user profile to not display user image
+router.put('/remove-display-img/:id', verifyToken, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const showUserImg = false;
+
+    if(!userId){
+      return res.status(404).json({ error: 'No user found' });
+    }
+    await Users.removeDisplayedUserImg(showUserImg, userId)
+    res.json({ message: 'User image display removed successfully!' });
+  } catch (error) {
+    console.error('Error removing user image:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
+
 
 export default router;

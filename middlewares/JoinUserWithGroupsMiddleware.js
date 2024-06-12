@@ -29,7 +29,8 @@ async function joinUsersWithGroups(req, res, next) {
                         user_email: user.user_email,
                         user_created:  formatDate(user.user_created), // Format datetime in French format
                         status_id: user.status_id,
-                        user_img : user.user_img
+                        user_img : user.user_img,
+                        show_user_image : user.show_user_image
                         // Add other user information here
                     },
                     groups: [] // Initialize an array to store groups
@@ -54,7 +55,8 @@ async function joinUsersWithGroups(req, res, next) {
                         user_email: user.user_email,
                         user_created:  formatDate(user.user_created), // Format datetime in French format
                         status_id: user.status_id,
-                        user_img : user.user_img
+                        user_img : user.user_img,
+                        show_user_image : user.show_user_image
                         // Add other user information here
                     },
                     groups: [] // Empty array since the user has no groups

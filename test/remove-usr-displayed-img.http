@@ -1,0 +1,3 @@
+PUT http://localhost:3000/users/remove-display-img/31
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE4MTg2MDA0LCJleHAiOjE3MTgyMjIwMDR9.uAIDdFe_tYkXfQeOJ3RAZmmn9CpBFjBuqv36WXmqfNE
