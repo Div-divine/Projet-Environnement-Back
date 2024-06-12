@@ -100,6 +100,10 @@ class Users {
         return row;
     }
 
+    static async displayUserImg(showUserImg, userId){
+        const [row] = await dbQuery('UPDATE users SET show_user_image = ? WHERE user_id = ?', [showUserImg, userId]);
+        return row;
+    }
 
 }
 

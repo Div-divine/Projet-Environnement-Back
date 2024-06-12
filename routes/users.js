@@ -37,13 +37,17 @@ router.post('/usr-img', verifyToken, async (req, res) => {
     const { userId, imageName } = req.body
     // Get user image from database if already exists
     const getImg = await Users.getUserImg(userId)
+    const showUserImg = true
 
     if (getImg.user_img != imageName) {
       // If there is an existing image, we update the image to the current user uploaded image
       await Users.updateUserImg(imageName, userId)
       res.status(201).json({ message: 'User image updatted successfully' });
     }
-
+    if(!getImg.user_img != imageName ){
+      await Users.displayUserImg(showUserImg, userId)   
+    } 
+ 
     return ;
     
   } catch (error) {
@@ -166,11 +170,28 @@ router.put('/remove-display-img/:id', verifyToken, async (req, res) => {
     const userId = req.params.id;
     const showUserImg = false;
 
-    if(!userId){
-      return res.status(404).json({ error: 'No user found' });
+    if(userId){
+      await Users.removeDisplayedUserImg(showUserImg, userId)
+      return res.json({ message: 'User image display removed successfully!' });
     }
-    await Users.removeDisplayedUserImg(showUserImg, userId)
-    res.json({ message: 'User image display removed successfully!' });
+    return res.status(404).json({ error: 'No user found' });
+  } catch (error) {
+    console.error('Error removing user image:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
+
+// Update user profile to display user image
+router.put('/display-img/:id', verifyToken, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const showUserImg = true;
+
+    if(userId){
+      await Users.displayUserImg(showUserImg, userId)
+      return res.json({ message: 'User image display added successfully!' });
+    }
+    return res.status(404).json({ error: 'No user found' });
   } catch (error) {
     console.error('Error removing user image:', error);
     res.status(500).json({ error: 'Internal server error' });
