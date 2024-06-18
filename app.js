@@ -7,6 +7,7 @@ import createHttpError from 'http-errors';
 import path from 'path';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
+import helmet from 'helmet';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -38,6 +39,35 @@ app.use(bodyParser.json());
 // Serve static files from the public directory
 const publicDirectoryPath = process.env.PUBLIC_PATH || path.join(__dirname, 'public/assets');
 app.use('/assets', express.static(publicDirectoryPath));
+
+// Enable CORS for all routes
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://localhost:5175",
+        "http://localhost:5176",
+        "http://site-environnement.d2wm.akoatic.ovh"
+    ],
+    methods: ['GET', 'POST']
+}));
+
+// Helmet configuration for CSP
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "http://localhost:3000"],
+            styleSrc: ["'self'", "fonts.googleapis.com"],
+            imgSrc: ["'self'", "data:"],
+            connectSrc: ["'self'", "http://localhost:3000"],
+            fontSrc: ["'self'", "fonts.gstatic.com"],
+            objectSrc: ["'none'"],
+            upgradeInsecureRequests: []
+        }
+    }
+}));
+
 
 // Routes (define routes after configuring)
 app.use('/', indexRouter);
