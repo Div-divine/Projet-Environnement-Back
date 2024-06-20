@@ -1,6 +1,12 @@
 doctype html
-html
+html(lang="en")
   head
-    title Welcome to Express
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Pug display page
+    style(nonce=nonce)
+    script.
+      window.nonce = '!{nonce}';
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" nonce=nonce)
   body
-    h1 Welcome to Express
+    

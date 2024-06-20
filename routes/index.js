@@ -2,9 +2,13 @@ import { Router } from 'express';
 
 const router = Router();
 
-// GET /
+// GET 
 router.get('/', (req, res) => {
-    res.send('Welcome to environment project backend index route!');
+    const scriptUrl = 'http://localhost:5173/src/main.jsx';
+    res.render('index', {
+        nonce: res.locals.nonce,
+        scriptUrl
+    });
 });
 
 export default router;

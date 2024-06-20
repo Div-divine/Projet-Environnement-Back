@@ -114,10 +114,11 @@ router.put('/:id',checkPostUpdate, verifyToken, async (req, res) => {
 router.delete('/comment/:id', verifyToken, async (req, res) => {
     try {
         const commentId = req.params.id;
-
+        if(!commentId){
+            return res.status(404).json({ message: 'Comment to delete not found' });
+        }
         // Delete post comment
         await Comments.deleteUserCommentOnly(commentId);
-
         res.send('comment deleted successfully');
     } catch (error) {
         console.error('Error deleting comment:', error);
