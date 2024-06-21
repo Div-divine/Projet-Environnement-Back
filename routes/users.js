@@ -34,22 +34,29 @@ router.post('/login', loginValidation, (req, res) => {
 // Send user image name to database
 router.post('/usr-img', verifyToken, async (req, res) => {
   try {
+    const userIdFromToken = req.userId
     const { userId, imageName } = req.body
-    // Get user image from database if already exists
-    const getImg = await Users.getUserImg(userId)
-    const showUserImg = true
 
-    if (getImg.user_img != imageName) {
-      // If there is an existing image, we update the image to the current user uploaded image
-      await Users.updateUserImg(imageName, userId)
-      res.status(201).json({ message: 'User image updatted successfully' });
+    if (userId != userIdFromToken) {
+      return res.status(401).json({ message: 'Unauthorized, unknown user trying to upload file!' })
     }
-    if(!getImg.user_img != imageName ){
-      await Users.displayUserImg(showUserImg, userId)   
-    } 
- 
-    return ;
-    
+    if (userId == userIdFromToken) {
+      // Get user image from database if already exists
+      const getImg = await Users.getUserImg(userId)
+      const showUserImg = true
+
+      if (getImg.user_img != imageName) {
+        // If there is an existing image, we update the image to the current user uploaded image
+        await Users.updateUserImg(imageName, userId)
+        res.status(201).json({ message: 'User image updatted successfully' });
+      }
+      if (!getImg.user_img != imageName) {
+        await Users.displayUserImg(showUserImg, userId)
+      }
+
+      return;
+    }
+
   } catch (error) {
     console.error('Error creating user:', error);
     res.status(500).json({ message: 'Internal server error' });
@@ -83,19 +90,24 @@ router.get('/info', verifyToken, async (req, res) => {
 // Define route to get user by ID
 router.get('/user-data/:id', verifyToken, async (req, res) => {
   try {
-    // Access user ID from request object
+    const userIdFromToken = req.userId
+    // Access user ID from params
     const userId = req.params.id;
-
-    // Get user info using id gotten from web token
-    const userData = await Users.getUserById(userId);
-
-    // Check if user data exists
-    if (!userData) {
-      return res.status(404).json({ error: 'User not found' });
+    if (userId != userIdFromToken) {
+      return res.status(401).json({ message: 'Unauthorized, unknown user trying to access user data!' })
     }
+    if (userId == userIdFromToken) {
+      // Get user info using id gotten from web token
+      const userData = await Users.getUserById(userId);
 
-    // Send user data in the response
-    res.json({ message: 'Protected route accessed', user: userData });
+      // Check if user data exists
+      if (!userData) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Send user data in the response
+      res.json({ message: 'Protected route accessed', user: userData });
+    }
   } catch (error) {
     // Handle any errors
     console.error('Error fetching user data:', error);
@@ -107,31 +119,49 @@ router.get('/user-data/:id', verifyToken, async (req, res) => {
 // Route to get all users
 router.get('/:id', verifyToken, async (req, res) => {
   const userId = req.params.id;
-  const users = await Users.getAllUser(userId);
-  if (users.length < 0) {
-    return res.status(404).json({ error: 'No user found' });
+  const userIdFromToken = req.userId
+  if (userId != userIdFromToken) {
+    return res.status(401).json({ message: 'Unauthorized, unknown user trying to get users!' })
   }
-  res.send(users);
+  if (userId == userIdFromToken) {
+    const users = await Users.getAllUser(userId);
+    if (users.length < 0) {
+      return res.status(404).json({ error: 'No user found' });
+    }
+    res.send(users);
+  }
 })
 
 
 // Route to get all only four users
 router.get('/limitusers/:id', verifyToken, async (req, res) => {
+  const userIdFromToken = req.userId
   const userId = req.params.id;
-  const users = await Users.getOnlyFourUser(userId);
-  if (users.length < 0) {
-    return res.status(404).json({ error: 'No user found' });
+  if (userId != userIdFromToken) {
+    return res.status(401).json({ message: 'Unauthorized, unknown user trying to get users!' })
   }
-  res.send(users);
+  if (userId == userIdFromToken) {
+    const users = await Users.getOnlyFourUser(userId);
+    if (users.length < 0) {
+      return res.status(404).json({ error: 'No user found' });
+    }
+    res.send(users);
+  }
 })
 
 // Update user name
 router.put('/update-name/:id', updateUserName, verifyToken, async (req, res) => {
   try {
+    const userIdFromToken = req.userId
     const userId = req.params.id;
     const newName = req.body.newName;
-    await Users.updateUserName(newName, userId);
-    res.json({ message: 'User name updated successfully' });
+    if (userId != userIdFromToken) {
+      return res.status(401).json({ message: 'Unauthorized, unknown user trying to update user name!' })
+    }
+    if (userId == userIdFromToken) {
+      await Users.updateUserName(newName, userId);
+      res.json({ message: 'User name updated successfully' });
+    }
   } catch (error) {
     console.error('Error updating user name:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -141,10 +171,16 @@ router.put('/update-name/:id', updateUserName, verifyToken, async (req, res) => 
 // Update user name
 router.put('/update-email/:id', updateUserEmail, verifyToken, async (req, res) => {
   try {
+    const userIdFromToken = req.userId
     const userId = req.params.id;
     const newEmail = req.body.newEmail;
-    await Users.updateUserEmail(newEmail, userId);
-    res.json({ message: 'User email updated successfully' });
+    if (userId != userIdFromToken) {
+      return res.status(401).json({ message: 'Unauthorized, unknown user trying to update user email!' })
+    }
+    if (userId == userIdFromToken) {
+      await Users.updateUserEmail(newEmail, userId);
+      res.json({ message: 'User email updated successfully' });
+    }
   } catch (error) {
     console.error('Error updating user name:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -155,9 +191,15 @@ router.put('/update-email/:id', updateUserEmail, verifyToken, async (req, res) =
 router.put('/update-pwd/:id', updateUserPwd, verifyToken, async (req, res) => {
   try {
     const userId = req.params.id;
+    const userIdFromToken = req.userId
     const { confPwd, newPwd } = req.body;
-    await Users.updateUserPwd(newPwd, userId);
-    res.json({ message: 'User password updated successfully!' });
+    if (userId != userIdFromToken) {
+      return res.status(401).json({ message: 'Unauthorized, unknown user trying to update user password!' })
+    }
+    if (userId == userIdFromToken) {
+      await Users.updateUserPwd(newPwd, userId);
+      res.json({ message: 'User password updated successfully!' });
+    }
   } catch (error) {
     console.error('Error updating user password:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -169,12 +211,17 @@ router.put('/remove-display-img/:id', verifyToken, async (req, res) => {
   try {
     const userId = req.params.id;
     const showUserImg = false;
-
-    if(userId){
-      await Users.removeDisplayedUserImg(showUserImg, userId)
-      return res.json({ message: 'User image display removed successfully!' });
+    const userIdFromToken = req.userId
+    if (!userId) {
+      return res.status(404).json({ error: 'No user found' });
     }
-    return res.status(404).json({ error: 'No user found' });
+    if (userId != userIdFromToken) {
+      return res.status(401).json({ message: 'Unauthorized, unknown user trying to update user password!' })
+    }
+    if (userId == userIdFromToken) {
+        await Users.removeDisplayedUserImg(showUserImg, userId)
+        return res.json({ message: 'User image display removed successfully!' });
+    }
   } catch (error) {
     console.error('Error removing user image:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -184,14 +231,19 @@ router.put('/remove-display-img/:id', verifyToken, async (req, res) => {
 // Update user profile to display user image
 router.put('/display-img/:id', verifyToken, async (req, res) => {
   try {
+    const userIdFromToken = req.userId
     const userId = req.params.id;
     const showUserImg = true;
-
-    if(userId){
+    if (!userId) {
+      return res.status(404).json({ error: 'No user found' });
+    }
+    if (userId != userIdFromToken) {
+      return res.status(401).json({ message: 'Unauthorized, unknown user trying to update user password!' })
+    }
+    if (userId == userIdFromToken) {
       await Users.displayUserImg(showUserImg, userId)
       return res.json({ message: 'User image display added successfully!' });
     }
-    return res.status(404).json({ error: 'No user found' });
   } catch (error) {
     console.error('Error removing user image:', error);
     res.status(500).json({ error: 'Internal server error' });

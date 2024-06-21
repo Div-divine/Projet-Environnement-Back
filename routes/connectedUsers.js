@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 const router = Router();
 
-// SSE Route
+// SSE Route (Server Sent Events)
 export const sendConnectedUsersSSE = (connectedUserNames) => {
     return router.get('/', (req, res) => {
         res.setHeader('Content-Type', 'text/event-stream');

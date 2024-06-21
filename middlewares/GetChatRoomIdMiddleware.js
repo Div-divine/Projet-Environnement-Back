@@ -17,9 +17,8 @@ async function getchatRoomId(req, res) {
         if (!response) {
             return res.status(404).json({ message: 'Chat room not found' });
         }
-
-        // Return chat room details
-        res.status(200).json(response);
+        
+        next();
     } catch (error) {
         // Handle error
         console.error('Error fetching chat room ID:', error);

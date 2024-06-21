@@ -1,3 +1,3 @@
-DELETE http://localhost:3000/posts/6
+DELETE http://localhost:3000/posts/6/10
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE0ODI4NTE2LCJleHAiOjE3MTQ4MzIxMTZ9.4zvgyvG-GgJTQZPCA93ZnnWGv6VKNeSurt5jHSoNKgk
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE4OTYxNTk2LCJleHAiOjE3MTg5OTc1OTZ9.BwJ0IH-bWeg_FrbH9iyZaZin6cCbQxFV1tMDMNqLirM

@@ -14,8 +14,8 @@ class Comments{
         const [rows] = await dbQuery('DELETE FROM comments WHERE comment_id = ? ',[commentId]);
         return rows;
     }
-    static async updateUserComment(commentId, commentUpdate){
-        const [rows] = await dbQuery('UPDATE comments SET comment_msg = ? WHERE comment_id = ?',[commentUpdate, commentId]);
+    static async updateUserComment(commentId, commentUpdate, userId){
+        const [rows] = await dbQuery('UPDATE comments SET comment_msg = ? WHERE comment_id = ? AND user_id= ?',[commentUpdate, commentId, userId]);
         return rows;
     }
     static async updateCommentStatusOnceUserQuitsGroup(maskCommentInGroup, userId, groupId){

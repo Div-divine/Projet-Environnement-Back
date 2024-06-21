@@ -1,6 +1,6 @@
 function checkPostUpdate(req, res, next){
     try {
-    const postId = req.params.id;
+    const postId = req.params.postId;
     const postContent = req.body;
     if(!postId && postContent){
         return res.status(404).json({ status: 404, message: 'Post not found' });

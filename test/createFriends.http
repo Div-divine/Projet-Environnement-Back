@@ -1,6 +1,6 @@
 POST http://localhost:3000/friends
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE0NDAwMjUyLCJleHAiOjE3MTQ0MDM4NTJ9.rl3mClquX9A9LgZjeLqzKVLD3NPMZr5jO3p51XTcmtI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE4OTU2MjA0LCJleHAiOjE3MTg5OTIyMDR9.b6mGXw3QO7yETje1UxD9uOtCxjZfG1QALvjsJ02_eO0
 
 {
   "user1Id": 31,

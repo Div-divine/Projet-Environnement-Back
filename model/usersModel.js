@@ -35,7 +35,7 @@ class Users {
         return row[0];
     }
     static async getAllUser(userId) {
-        const [row] = await dbQuery('SELECT user_id, user_name FROM users WHERE user_id != ? ORDER BY user_created DESC', [userId]);
+        const [row] = await dbQuery('SELECT user_id, user_name, user_img FROM users WHERE user_id != ? ORDER BY user_created DESC', [userId]);
         return row;
     }
     static async getOnlyFourUser(userId) {

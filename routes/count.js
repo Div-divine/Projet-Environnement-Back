@@ -7,6 +7,7 @@ const router = Router();
 
 router.get('/', verifyToken, async (req, res) => {
     try {
+      
       const userCount = await Count.getNbrOfUsers();
       res.json({ count: userCount.nbr }); // Send only the count value
     } catch (error) {

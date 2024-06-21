@@ -11,10 +11,16 @@ const router = Router();
 
 router.post('/', verifyFriendPair, validateFriendRequest, verifyToken, async (req, res) => {
     try {
+        const userIdFromToken = req.userId
         const { user1Id, user2Id } = req.body;
-        const friendshipRequest = await Friends.createFriends(user1Id, user2Id);
-
-        res.send('Friend request sent successfully'); // Send only the count value
+        // ensure user sending the request is the user connected
+        if (user1Id != userIdFromToken && user2Id != userIdFromToken) {
+            return res.status(401).json({ message: 'Unauthairized action, user does not match' })
+        }
+        if (user1Id == userIdFromToken || user2Id == userIdFromToken) {
+            await Friends.createFriends(user1Id, user2Id);
+            res.send('Friend request sent successfully'); // Send only the count value
+        }
     } catch (error) {
         console.error('Error creting post:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -23,11 +29,15 @@ router.post('/', verifyFriendPair, validateFriendRequest, verifyToken, async (re
 
 router.get('/:id', checkUserFriends, verifyToken, async (req, res) => {
     try {
+        const userIdFromToken = req.userId
         const userId = req.params.id;
-
-        const getUserfriends = await Friends.getAllUsersFriends(userId)
-
-        res.send(getUserfriends); // Send user frineds
+        if (userId != userIdFromToken) {
+            return res.status(401).json({ message: 'Unauthairized action, user does not match' })
+        }
+        if (userId == userIdFromToken) {
+            const getUserfriends = await Friends.getAllUsersFriends(userId)
+            res.send(getUserfriends); // Send user frineds
+        }
     } catch (error) {
         console.error('Error getting user friends:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -36,11 +46,16 @@ router.get('/:id', checkUserFriends, verifyToken, async (req, res) => {
 
 router.delete('/:user1Id/:user2Id', checkUsersToDelete, verifyToken, async (req, res) => {
     try {
+        const userIdFromToken = req.userId
         const { user1Id, user2Id } = req.params;
-
-        await Friends.deleteUsersFromFriends(user1Id, user2Id);
-
-        res.send('Friend deleted successfully');
+        // ensure user making the deleting is the user connected
+        if (user1Id != userIdFromToken && user2Id != userIdFromToken) {
+            return res.status(401).json({ message: 'Unauthairized action, don\'t have right to delete user' })
+        }
+        if (user1Id == userIdFromToken || user2Id == userIdFromToken) {
+            await Friends.deleteUsersFromFriends(user1Id, user2Id);
+            res.send('Friend deleted successfully');
+        }
     } catch (error) {
         console.error('Error deleting friend:', error);
         res.status(500).json({ error: 'Internal server error' });

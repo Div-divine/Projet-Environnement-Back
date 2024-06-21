@@ -1,6 +1,6 @@
 function checkUpdateComment(req, res, next){
     try{
-        const commentId = req.params.id;
+        const commentId = req.params.commentId;
         const updateContent = req.body.updateContent;
 
         if(!commentId){

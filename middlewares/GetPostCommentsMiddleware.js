@@ -1,8 +1,8 @@
 function getPostComments(req, res, next) {
     try {
-        const id = req.params.id
+        const postId = req.params.postId
 
-        if(!id){
+        if(!post){
             return res.status(404).json({ message: 'post not found' });
         }
         next();

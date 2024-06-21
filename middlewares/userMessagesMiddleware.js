@@ -18,8 +18,6 @@ async function addUserMessages(req, res, next) {
         if (!user1Id && !user2Id) {
             return res.status(404).json({ status: 404, message: 'Can\'t create chatroom' });
         }
-        // Await the result of the dbQuery function
-        const messages = await ChatRoom.insertMessages(message, user1Id, user2Id, chatroomId);
         next();
     } catch (error) {
         // Handle error

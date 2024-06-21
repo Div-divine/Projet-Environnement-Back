@@ -78,6 +78,8 @@ app.use(helmet.contentSecurityPolicy({
         fontSrc: ["'self'", "fonts.gstatic.com"],
         objectSrc: ["'none'"],
         upgradeInsecureRequests: [],
+        // CORP directive 
+        crossOriginResourcePolicy: ['same-site']
     },
     reportOnly: true // Set to true to report violations without enforcing the policy
 }));
@@ -136,7 +138,7 @@ io.on('connection', (socket) => {
     socket.on('connected_username', (username) => {
         connectedUserNames[username] = username; // Use username as key
         console.log(`Username registered: ${username}`);
-      });
+    });
 
     setInterval(() => {
         const filteredUserNames = Object.keys(connectedUserNames);
