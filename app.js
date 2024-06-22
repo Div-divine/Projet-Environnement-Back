@@ -96,14 +96,14 @@ const connectedUserNames = {};
 // Routes (define routes after configuring)
 app.use('/', indexRouter);
 app.use('/users', userRouter);
-app.use('/groups', verifyCsrfToken, groupsRouter);
-app.use('/usergroups',  verifyCsrfToken, usersGroupsRouter);
-app.use('/count',  verifyCsrfToken, countRouter);
-app.use('/chatroom',  verifyCsrfToken, chatRoomsrouter);
-app.use('/messages',  verifyCsrfToken, userMsgRouter);
-app.use('/posts',  verifyCsrfToken, postsRouter);
-app.use('/friends',  verifyCsrfToken, friendsRouter);
-app.use('/uploads', verifyCsrfToken, fileUploadRouter);
+app.use('/groups', groupsRouter, verifyCsrfToken);
+app.use('/usergroups',  usersGroupsRouter, verifyCsrfToken);
+app.use('/count', countRouter, verifyCsrfToken);
+app.use('/chatroom', chatRoomsrouter, verifyCsrfToken);
+app.use('/messages', userMsgRouter, verifyCsrfToken);
+app.use('/posts', postsRouter, verifyCsrfToken);
+app.use('/friends', friendsRouter, verifyCsrfToken);
+app.use('/uploads', fileUploadRouter, verifyCsrfToken);
 app.use('/events', sendConnectedUsersSSE(connectedUserNames));
 app.use('/csrf-token', csrfRouter)
 
