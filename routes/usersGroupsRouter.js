@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import verifyToken from '../middlewares/webtokenMiddleware.js';
-import UserGroupsMiddleware from '../middlewares/ValidateUsersAndGroupsMiddleware.js';
+import UserGroupsMiddleware from '../middlewares/validateUsersAndGroupsMiddleware.js';
 import UsersGroups from '../model/UsersAndGroupsModel.js';
 
 import { dbQuery } from '../db/db.js';

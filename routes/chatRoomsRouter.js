@@ -1,7 +1,7 @@
 import { Router } from "express";
 import verifyToken from "../middlewares/webtokenMiddleware.js";
-import createChatroom from "../middlewares/ChatRoomAccessMiddleware.js";
-import getchatRoomId from "../middlewares/GetChatRoomIdMiddleware.js";
+import createChatroom from "../middlewares/chatRoomAccessMiddleware.js";
+import getchatRoomId from "../middlewares/getChatRoomIdMiddleware.js";
 import addUserMessages from "../middlewares/userMessagesMiddleware.js";
 import ChatRoom from "../model/chatRommsModel.js";
 

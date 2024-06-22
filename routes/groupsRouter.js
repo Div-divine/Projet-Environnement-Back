@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import Groups from '../model/groupsModel.js';
 import verifyToken from '../middlewares/webtokenMiddleware.js';
-import getGroupById from '../middlewares/GetGroupByIdMiddleware.js';
+import getGroupById from '../middlewares/getGroupByIdMiddleware.js';
 
 const router = Router();
 

@@ -9,22 +9,25 @@ import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import helmet from 'helmet';
 import crypto from 'crypto';
+import cookieParser from 'cookie-parser';
+import { verifyCsrfToken } from './middlewares/csrfTokenMiddleware.js';
 
 // Load environment variables from .env file
 dotenv.config();
 
 // Get routes
-import indexRouter from './routes/index.js';
-import userRouter from './routes/users.js';
-import groupsRouter from './routes/groups.js';
-import usersGroupsRouter from './routes/usersGroups.js';
-import countRouter from './routes/count.js';
-import chatRoomsrouter from './routes/chatRooms.js';
-import userMsgRouter from './routes/messages.js';
-import postsRouter from './routes/posts.js';
-import friendsRouter from './routes/friends.js';
-import fileUploadRouter from './routes/uploads.js';
-import { sendConnectedUsersSSE } from './routes/connectedUsers.js';
+import indexRouter from './routes/indexRouter.js';
+import userRouter from './routes/usersRouter.js';
+import groupsRouter from './routes/groupsRouter.js';
+import usersGroupsRouter from './routes/usersGroupsRouter.js';
+import countRouter from './routes/countRouter.js';
+import chatRoomsrouter from './routes/chatRoomsRouter.js';
+import userMsgRouter from './routes/messagesRouter.js';
+import postsRouter from './routes/postsRouter.js';
+import friendsRouter from './routes/friendsRouter.js';
+import fileUploadRouter from './routes/uploadsRouter.js';
+import { sendConnectedUsersSSE } from './routes/connectedUsersRouter.js';
+import csrfRouter from './routes/csrfRouter.js'
 
 // Set up __dirname and __filename
 const __filename = fileURLToPath(import.meta.url);
@@ -37,6 +40,9 @@ app.use(cors());
 
 // Body parser (configure it before defining routes)
 app.use(bodyParser.json());
+
+// secret key  for cookie
+app.use(cookieParser(process.env.COOKIE_PARSER_SECRET_KEY));
 
 // Serve static files from the public directory
 const publicDirectoryPath = process.env.PUBLIC_PATH || path.join(__dirname, 'public/assets');
@@ -90,15 +96,16 @@ const connectedUserNames = {};
 // Routes (define routes after configuring)
 app.use('/', indexRouter);
 app.use('/users', userRouter);
-app.use('/groups', groupsRouter);
-app.use('/usergroups', usersGroupsRouter);
-app.use('/count', countRouter);
-app.use('/chatroom', chatRoomsrouter);
-app.use('/messages', userMsgRouter);
-app.use('/posts', postsRouter);
-app.use('/friends', friendsRouter);
-app.use('/uploads', fileUploadRouter);
+app.use('/groups', verifyCsrfToken, groupsRouter);
+app.use('/usergroups',  verifyCsrfToken, usersGroupsRouter);
+app.use('/count',  verifyCsrfToken, countRouter);
+app.use('/chatroom',  verifyCsrfToken, chatRoomsrouter);
+app.use('/messages',  verifyCsrfToken, userMsgRouter);
+app.use('/posts',  verifyCsrfToken, postsRouter);
+app.use('/friends',  verifyCsrfToken, friendsRouter);
+app.use('/uploads', verifyCsrfToken, fileUploadRouter);
 app.use('/events', sendConnectedUsersSSE(connectedUserNames));
+app.use('/csrf-token', csrfRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

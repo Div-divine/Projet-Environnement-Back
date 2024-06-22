@@ -1,9 +1,9 @@
 import { Router } from "express";
 import verifyToken from "../middlewares/webtokenMiddleware.js";
 import ChatRoom from "../model/chatRommsModel.js";
-import getUsersMsg from '../middlewares/GetAllMsgMiddleware.js';
-import updateMsgStatus from "../middlewares/UpdateMsgReadStatusMiddleware.js";
-import checkReceiverAndMsgState from "../middlewares/CheckReceiverForUnreadMsgMiddleware.js";
+import getUsersMsg from '../middlewares/getAllMsgMiddleware.js';
+import updateMsgStatus from "../middlewares/updateMsgReadStatusMiddleware.js";
+import checkReceiverAndMsgState from "../middlewares/checkReceiverForUnreadMsgMiddleware.js";
 
 const router = Router();
 

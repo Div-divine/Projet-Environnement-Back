@@ -1,14 +1,14 @@
 import { Router } from 'express';
 import Posts from '../model/postsModel.js';
 import verifyToken from "../middlewares/webtokenMiddleware.js";
-import postInsertion from '../middlewares/ValidatePostsInsertMiddleware.js';
-import getPosts from '../middlewares/GetPostMiddleware.js';
-import validateComment from '../middlewares/ValidateCommentsMiddleware.js';
+import postInsertion from '../middlewares/validatePostsInsertMiddleware.js';
+import getPosts from '../middlewares/getPostMiddleware.js';
+import validateComment from '../middlewares/validateCommentsMiddleware.js';
 import Comments from '../model/commentsModel.js';
-import getPostComments from '../middlewares/GetPostCommentsMiddleware.js';
-import checkPostUpdate from '../middlewares/CheckPostToUpdateMiddleware.js';
-import checkUpdateComment from '../middlewares/UpdateCommentMiddleware.js';
-import verifyExistPost from '../middlewares/CheckExistingPostMiddleware.js';
+import getPostComments from '../middlewares/getPostCommentsMiddleware.js';
+import checkPostUpdate from '../middlewares/checkPostToUpdateMiddleware.js';
+import checkUpdateComment from '../middlewares/updateCommentMiddleware.js';
+import verifyExistPost from '../middlewares/checkExistingPostMiddleware.js';
 
 
 const router = Router();

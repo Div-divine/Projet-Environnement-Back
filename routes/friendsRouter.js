@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import validateFriendRequest from '../middlewares/ValidateFriendshipMiddleware.js';
+import validateFriendRequest from '../middlewares/validateFriendshipMiddleware.js';
 import Friends from '../model/UserfriendsModel.js';
 import verifyToken from '../middlewares/webtokenMiddleware.js';
-import verifyFriendPair from '../middlewares/EnsureOneFriendrequestMiddleware.js';
-import checkUserFriends from '../middlewares/GetUserFriendsMiddleware.js';
-import checkUsersToDelete from '../middlewares/DeleteFriendsMiddleware.js';
+import verifyFriendPair from '../middlewares/ensureOneFriendrequestMiddleware.js';
+import checkUserFriends from '../middlewares/getUserFriendsMiddleware.js';
+import checkUsersToDelete from '../middlewares/deleteFriendsMiddleware.js';
 
 const router = Router();
 
