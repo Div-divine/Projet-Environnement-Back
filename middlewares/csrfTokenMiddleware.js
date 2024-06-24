@@ -10,11 +10,12 @@ const generateCsrfToken = (req, res, next) => {
         csrfTokens[userId] = secret;
     }
     req.csrfToken = tokens.create(csrfTokens[userId]);
+    res.setHeader('CSRF-Token', req.csrfToken); // Send the CSRF token as a response header
     next();
 };
 
 const verifyCsrfToken = (req, res, next) => {
-    const token = req.headers['CSRF-Token'];
+    const token = req.headers['CSRF-Token']; // Use lowercase for header keys
     const userId = req.userId;
     const secret = csrfTokens[userId];
 

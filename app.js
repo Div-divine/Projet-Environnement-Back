@@ -27,7 +27,8 @@ import postsRouter from './routes/postsRouter.js';
 import friendsRouter from './routes/friendsRouter.js';
 import fileUploadRouter from './routes/uploadsRouter.js';
 import { sendConnectedUsersSSE } from './routes/connectedUsersRouter.js';
-import csrfRouter from './routes/csrfRouter.js'
+import csrfRouter from './routes/csrfRouter.js';
+import FriendsDataRouter from './routes/dataFriends.js';
 
 // Set up __dirname and __filename
 const __filename = fileURLToPath(import.meta.url);
@@ -103,6 +104,7 @@ app.use('/chatroom', chatRoomsrouter, verifyCsrfToken);
 app.use('/messages', userMsgRouter, verifyCsrfToken);
 app.use('/posts', postsRouter, verifyCsrfToken);
 app.use('/friends', friendsRouter, verifyCsrfToken);
+app.use('/datas', FriendsDataRouter);
 app.use('/uploads', fileUploadRouter, verifyCsrfToken);
 app.use('/events', sendConnectedUsersSSE(connectedUserNames));
 app.use('/csrf-token', csrfRouter)

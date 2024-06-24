@@ -16,7 +16,7 @@ class Friends {
     }
     static async getAllUsersFriendsData(userId) {
         const [rows] = await dbQuery(`SELECT 
-        u1.user_name AS friend_id, u1.user_img AS friend_img
+        u1.user_id, u1.user_name AS friend_id, u1.user_img AS friend_img
     FROM 
         friendships f
     JOIN 
@@ -25,7 +25,7 @@ class Friends {
         f.user2_id = ?
     UNION
     SELECT 
-       u2.user_name AS friend_id, u2.user_img AS friend_img
+    u2.user_id, u2.user_name AS friend_id, u2.user_img AS friend_img
     FROM 
         friendships f
     JOIN 

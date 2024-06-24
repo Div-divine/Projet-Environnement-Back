@@ -43,22 +43,7 @@ router.get('/:id', checkUserFriends, verifyToken, async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-router.get('user-friends-data/:id', checkUserFriends, verifyToken, async (req, res) => {
-    try {
-        const userIdFromToken = req.userId
-        const userId = req.params.id;
-        if (userId != userIdFromToken) {
-            return res.status(401).json({ message: 'Unauthairized action, user does not match' })
-        }
-        if (userId == userIdFromToken) {
-            const getUserfriendsData = await Friends.getAllUsersFriendsData(userId)
-            res.send(getUserfriendsData); // Send user frineds
-        }
-    } catch (error) {
-        console.error('Error getting user friends:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
+
 
 router.delete('/:user1Id/:user2Id', checkUsersToDelete, verifyToken, async (req, res) => {
     try {
