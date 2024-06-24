@@ -1,6 +1,6 @@
 import ChatRoom from "../model/chatRommsModel.js";
 
-async function getchatRoomId(req, res) {
+async function getchatRoomId(req, res, next) {
     // Extract users ID from request parameters
     const { user1Id, user2Id } = req.params;
 

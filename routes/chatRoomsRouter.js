@@ -53,7 +53,7 @@ router.get('/exists-chatroom/:user1Id/:user2Id', verifyToken, async (req, res) =
 
 });
 
-router.get('/chatroom-id/:user1Id/:user2Id', getchatRoomId, verifyToken, async (res, req, next) => {
+router.get('/chatroom-id/:user1Id/:user2Id', getchatRoomId, verifyToken, async (req, res) => {
   try {
     const userIdFromToken = req.userId
     const { user1Id, user2Id } = req.params;
@@ -73,7 +73,7 @@ router.get('/chatroom-id/:user1Id/:user2Id', getchatRoomId, verifyToken, async (
   }
 });
 
-router.post('/messages', addUserMessages, verifyToken, async (req, res, next) => {
+router.post('/messages', addUserMessages, verifyToken, async (req, res) => {
   try {
     const userIdFromToken = req.userId
     const { message, user1Id, user2Id, chatroomId } = req.body;

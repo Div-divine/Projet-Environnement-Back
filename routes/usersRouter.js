@@ -90,13 +90,9 @@ router.get('/info', verifyToken, async (req, res) => {
 // Define route to get user by ID
 router.get('/user-data/:id', verifyToken, async (req, res) => {
   try {
-    const userIdFromToken = req.userId
     // Access user ID from params
     const userId = req.params.id;
-    if (userId != userIdFromToken) {
-      return res.status(401).json({ message: 'Unauthorized, unknown user trying to access user data!' })
-    }
-    if (userId == userIdFromToken) {
+
       // Get user info using id gotten from web token
       const userData = await Users.getUserById(userId);
 
@@ -107,7 +103,6 @@ router.get('/user-data/:id', verifyToken, async (req, res) => {
 
       // Send user data in the response
       res.json({ message: 'Protected route accessed', user: userData });
-    }
   } catch (error) {
     // Handle any errors
     console.error('Error fetching user data:', error);
