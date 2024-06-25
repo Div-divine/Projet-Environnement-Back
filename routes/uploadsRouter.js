@@ -50,7 +50,7 @@ router.post('/upload-img/:userId', verifyToken, upload.single('file'), (req, res
   }
 });
 
-router.delete('/delete-img/:userId', verifyToken, deleteUserImgFromServer, async (req, res) => {
+router.post('/delete-img/:userId', verifyToken, deleteUserImgFromServer, async (req, res) => {
   try {
     const userId = req.params.userId;
     const filename = await Users.getUserImgFileName(userId);
