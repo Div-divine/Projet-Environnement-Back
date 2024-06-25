@@ -30,6 +30,11 @@ class Users {
         return rows[0];
     }
 
+    static async getUserNameAndEmail(userId) {
+        const [row] = await dbQuery('SELECT user_name, user_email FROM users WHERE user_id= ?', [userId]);
+        return row[0];
+    }
+
     static async getUserById(userId) {
         const [row] = await dbQuery('SELECT * FROM users WHERE user_id= ?', [userId]);
         return row[0];
@@ -41,6 +46,19 @@ class Users {
     static async getOnlyFourUser(userId) {
         const [row] = await dbQuery('SELECT user_id, user_name FROM users WHERE user_id != ? ORDER BY user_created DESC LIMIT 4', [userId]);
         return row;
+    }
+
+    static async getUserRole(userId) {
+        const [row] = await dbQuery('SELECT status_id FROM users WHERE user_id= ?', [userId]);
+        return row[0];
+    }
+    static async getUserImgFileName(userId) {
+        const [row] = await dbQuery('SELECT user_img FROM users WHERE user_id= ?', [userId]);
+        return row[0];
+    }
+    static async checkUserDeletingImg(userImg) {
+        const [row] = await dbQuery('SELECT user_id FROM users WHERE user_img= ?', [userImg]);
+        return row[0];
     }
 
     static async ensureUpdateNameDoesNotAlreadyExists(updateName, userId) {
@@ -102,6 +120,10 @@ class Users {
 
     static async displayUserImg(showUserImg, userId){
         const [row] = await dbQuery('UPDATE users SET show_user_image = ? WHERE user_id = ?', [showUserImg, userId]);
+        return row;
+    }
+    static async closeUserAccountSetToUnknown(userName, userEmail, userImg, userId){
+        const [row] = await dbQuery('UPDATE users SET user_name = ?, user_email = ?, user_img = ? WHERE user_id = ?', [userName, userEmail, userImg, userId]);
         return row;
     }
 

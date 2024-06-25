@@ -7,6 +7,7 @@ import blockRegistrationOfSameUser from '../middlewares/checkUserAlreadyExistsMi
 import updateUserName from '../middlewares/updateUserNameMiddleware.js';
 import updateUserEmail from '../middlewares/updateUserEmailMiddleware.js';
 import updateUserPwd from '../middlewares/updateUserPwdMiddleware.js';
+import deleteUserAccount from '../middlewares/DeleteUserAccountMiddleware.js';
 
 const router = Router();
 
@@ -93,16 +94,16 @@ router.get('/user-data/:id', verifyToken, async (req, res) => {
     // Access user ID from params
     const userId = req.params.id;
 
-      // Get user info using id gotten from web token
-      const userData = await Users.getUserById(userId);
+    // Get user info using id gotten from web token
+    const userData = await Users.getUserById(userId);
 
-      // Check if user data exists
-      if (!userData) {
-        return res.status(404).json({ error: 'User not found' });
-      }
+    // Check if user data exists
+    if (!userData) {
+      return res.status(404).json({ error: 'User not found' });
+    }
 
-      // Send user data in the response
-      res.json({ message: 'Protected route accessed', user: userData });
+    // Send user data in the response
+    res.json({ message: 'Protected route accessed', user: userData });
   } catch (error) {
     // Handle any errors
     console.error('Error fetching user data:', error);
@@ -214,8 +215,8 @@ router.put('/remove-display-img/:id', verifyToken, async (req, res) => {
       return res.status(401).json({ message: 'Unauthorized, unknown user trying to update user password!' })
     }
     if (userId == userIdFromToken) {
-        await Users.removeDisplayedUserImg(showUserImg, userId)
-        return res.json({ message: 'User image display removed successfully!' });
+      await Users.removeDisplayedUserImg(showUserImg, userId)
+      return res.json({ message: 'User image display removed successfully!' });
     }
   } catch (error) {
     console.error('Error removing user image:', error);
@@ -244,6 +245,25 @@ router.put('/display-img/:id', verifyToken, async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 })
+
+// Remove user account and remove all user personnal information setting them to unknown based on RGPD
+router.put('/delete-usr-account/:id', verifyToken, deleteUserAccount, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    // Set all user info to deleted user and null
+    const userName = 'Compte clôturé!'
+    const userEmail = 'email supprimé'
+    const userImg = null
+
+    await Users.closeUserAccountSetToUnknown(userName, userEmail, userImg, userId)
+    return res.json({ message: 'User Account deleted successfully!' });
+
+  } catch (error) {
+    console.error('Error deleting user account:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 
 export default router;

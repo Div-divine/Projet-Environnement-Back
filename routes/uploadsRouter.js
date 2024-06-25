@@ -3,6 +3,8 @@ import verifyToken from "../middlewares/webtokenMiddleware.js";
 import multer from "multer";
 import path from 'path';
 import fs from 'fs';
+import Users from "../model/usersModel.js";
+import deleteUserImgFromServer from "../middlewares/deleteUserImgMiddleware.js";
 
 const router = Router();
 
@@ -45,6 +47,25 @@ router.post('/upload-img/:userId', verifyToken, upload.single('file'), (req, res
     }
   } catch (error) {
     res.status(400).send('Error uploading file');
+  }
+});
+
+router.delete('/delete-img/:userId', verifyToken, deleteUserImgFromServer, async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const filename = await Users.getUserImgFileName(userId);
+
+    const filePath = path.join(publicPath, filename.user_img);
+
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+      return res.status(200).json({ message: 'Image deleted successfully' });
+    } else {
+      return res.json({ message: 'Image not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 

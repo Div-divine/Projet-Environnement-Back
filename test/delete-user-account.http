@@ -1,0 +1,7 @@
+PUT http://localhost:3000/users/delete-usr-account/14
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE5MzE0ODg4LCJleHAiOjE3MTkzNTA4ODh9.PpNh67aApasNGM6PbybhUTNlm9L6ZLGoSrBRrBo4nx0
+
+{
+    "userRoleId": 14
+}

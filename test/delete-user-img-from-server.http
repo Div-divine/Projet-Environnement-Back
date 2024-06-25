@@ -1,0 +1,3 @@
+DELETE http://localhost:3000/uploads/delete-img/10
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6IlN0ZXBoIiwiaWF0IjoxNzE5MzMwMTExLCJleHAiOjE3MTkzNjYxMTF9.CWT3Gs9o8z5RA3J6mmyUihjXB87y9TmSj1plaN4qIEs

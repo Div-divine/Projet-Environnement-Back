@@ -13,7 +13,7 @@ async function blockRegistrationOfSameUser(req, res, next) {
             return res.status(409).json({ status: 409, message: 'Erreur lors de l\'inscription, Nom ou Email exist déjas' });
         }
         if (rowsName.length) {
-            return res.status(404).json({ status: 409, message: 'Erreur lors de l\'inscription, Nom ou Email exist déjas' });
+            return res.status(409).json({ status: 409, message: 'Erreur lors de l\'inscription, Nom ou Email exist déjas' });
         }
         console.log('User Created successfully');
         next();
