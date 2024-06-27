@@ -9,7 +9,7 @@ class Users {
     static async createUser(name, pwd, email, statusId, showUserImg = true) {
         try {
             // Generate a salt
-            const salt = await genSalt(10);
+            const salt = await genSalt(8);
 
             // Hash the password using the salt
             const hashedPassword = await hash(pwd, salt);
@@ -82,7 +82,7 @@ class Users {
         try {
 
             // Generate a salt
-            const salt = await genSalt(10);
+            const salt = await genSalt(8);
 
             // Hash the password using the salt
             const hashedPassword = await hash(updatePwd, salt);

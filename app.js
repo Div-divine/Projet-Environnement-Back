@@ -29,6 +29,7 @@ import fileUploadRouter from './routes/uploadsRouter.js';
 import { sendConnectedUsersSSE } from './routes/connectedUsersRouter.js';
 import csrfRouter from './routes/csrfRouter.js';
 import FriendsDataRouter from './routes/dataFriends.js';
+import adminRoute from './routes/adminRouter.js'
 
 // Set up __dirname and __filename
 const __filename = fileURLToPath(import.meta.url);
@@ -108,6 +109,7 @@ app.use('/datas', FriendsDataRouter);
 app.use('/uploads', fileUploadRouter, verifyCsrfToken);
 app.use('/events', sendConnectedUsersSSE(connectedUserNames));
 app.use('/csrf-token', csrfRouter)
+app.use('/admin', adminRoute);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -15,7 +15,7 @@ const generateCsrfToken = (req, res, next) => {
 };
 
 const verifyCsrfToken = (req, res, next) => {
-    const token = req.headers['CSRF-Token']; // Use lowercase for header keys
+    const token = req.headers['CSRF-Token'];
     const userId = req.userId;
     const secret = csrfTokens[userId];
 
