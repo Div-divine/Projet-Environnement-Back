@@ -8,24 +8,24 @@ async function adminLoginValidation(req, res, next) {
     const secretKey = process.env.JWT_SECRET_KEY;
 
     try {
-        if(!email){
+        if (!email) {
             return res.status(404).json({ message: 'Enter email!' });
         }
-        if(!password){
+        if (!password) {
             return res.status(404).json({ message: 'Enter password!' });
         }
-         // Await the result of the dbQuery function
-         const [rows] = await dbQuery('SELECT * FROM users WHERE user_email = ?', [email]);
+        // Await the result of the dbQuery function
+        const [rows] = await dbQuery('SELECT * FROM users WHERE user_email = ?', [email]);
 
-         if (!rows.length) {
-             return res.status(404).json({ message: 'User not found' });
-         }
+        if (!rows.length) {
+            return res.status(404).json({ message: 'User not found' });
+        }
         // Get user status
         const userStatus = await Admin.getRoleByEmail(email)
-        if(!userStatus){
+        if (!userStatus) {
 
         }
-        if(userStatus.status_id == 2){
+        if (userStatus.status_id == 2) {
             return res.status(401).json({ message: 'Unauthorized user!' });
         }
 
@@ -38,15 +38,14 @@ async function adminLoginValidation(req, res, next) {
         if (!match) {
             return res.status(400).json({ message: 'Incorrect password' });
         }
-        
+
         // Generate JWT token 
         const token = jwt.sign({ userId: rows[0].user_id, username: rows[0].user_name }, secretKey, { expiresIn: '10h' });
-        // Attach token to response send it as data 
+        // Attach token to headers send it as data 
         res.status(200)
-        .header("authentification", token)
-        .json({ token, userId: rows[0].user_id.toString() });
-
-
+            .header("Authorization", token)
+            .header("Admin-Auth", token)
+            .json({ token, userId: rows[0].user_id.toString() });
     } catch (error) {
         // Handle error
         console.error('Error in admin login:', error);

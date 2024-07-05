@@ -80,7 +80,7 @@ app.use(helmet.contentSecurityPolicy({
     directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "https://kit.fontawesome.com", (req, res) => res.locals.nonce],
-        styleSrc: ["'self'", "fonts.googleapis.com", "https://cdn.jsdelivr.net", (req, res) => res.locals.nonce],
+        styleSrc: ["'self'", "fonts.googleapis.com", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com", (req, res) => res.locals.nonce],
         imgSrc: ["'self'", "http://localhost:3000", "data:"],
         connectSrc: ["'self'", "http://localhost:3000", "ws://localhost:3000"],
         fontSrc: ["'self'", "fonts.gstatic.com"],

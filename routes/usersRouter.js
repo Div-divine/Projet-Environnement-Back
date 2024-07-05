@@ -1,15 +1,35 @@
 import { Router } from 'express';
 import validateUserInput from '../middlewares/validateUsersMiddleware.js';
 import loginValidation from '../middlewares/userLoginMiddleware.js';
-import verifyToken from '../middlewares/webtokenMiddleware.js';
-import Users from '../model/usersModel.js';
 import blockRegistrationOfSameUser from '../middlewares/checkUserAlreadyExistsMiddleWare.js';
-import updateUserName from '../middlewares/updateUserNameMiddleware.js';
 import updateUserEmail from '../middlewares/updateUserEmailMiddleware.js';
 import updateUserPwd from '../middlewares/updateUserPwdMiddleware.js';
 import deleteUserAccount from '../middlewares/DeleteUserAccountMiddleware.js';
+import Users from '../model/usersModel.js';
+import updateUserName from '../middlewares/updateUserNameMiddleware.js';
+import verifyToken from '../middlewares/webtokenMiddleware.js';
 
 const router = Router();
+
+
+// Update user name
+router.put('/update-name/:id', updateUserName, verifyToken, async (req, res) => {
+  try {
+    const userIdFromToken = req.userId
+    const userId = req.params.id;
+    const newName = req.body.newName;
+    if (userId != userIdFromToken) {
+      return res.status(401).json({ message: 'Unauthorized, unknown user trying to update user name!' })
+    }
+    if (userId == userIdFromToken) {
+      await Users.updateUserName(newName, userId);
+      res.json({ message: 'User name updated successfully' });
+    }
+  } catch (error) {
+    console.error('Error updating user name:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
 
 router.post('/', blockRegistrationOfSameUser, validateUserInput, async (req, res) => {
   try {
@@ -142,25 +162,6 @@ router.get('/limitusers/:id', verifyToken, async (req, res) => {
       return res.status(404).json({ error: 'No user found' });
     }
     res.send(users);
-  }
-})
-
-// Update user name
-router.put('/update-name/:id', updateUserName, verifyToken, async (req, res) => {
-  try {
-    const userIdFromToken = req.userId
-    const userId = req.params.id;
-    const newName = req.body.newName;
-    if (userId != userIdFromToken) {
-      return res.status(401).json({ message: 'Unauthorized, unknown user trying to update user name!' })
-    }
-    if (userId == userIdFromToken) {
-      await Users.updateUserName(newName, userId);
-      res.json({ message: 'User name updated successfully' });
-    }
-  } catch (error) {
-    console.error('Error updating user name:', error);
-    res.status(500).json({ error: 'Internal server error' });
   }
 })
 
